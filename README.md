@@ -209,4 +209,29 @@ El sistema es multiusuario y permite registrar hábitos, escribir un diario pers
 - Basado en diagramas de flujo del sistema
 - Listo para planificación Scrum o Kanban
 
+## Desarrollo de las tablas en mongoDB
+
+Usuarios: Almacena la información de cuentas y perfil de cada usuario del sistema.
+Campos:
+•	_id (ObjectId): Identificador único del usuario.
+•	name (String): Nombre del usuario.
+•	email (String): Correo del usuario (debe ser único).
+•	passwordHash (String): Contraseña cifrada.
+•	avatarUrl (String, opcional): Foto o avatar del usuario.
+
+Mascotas: Almacena el perfil de cada mascota (nombre, especie, datos básicos).
+Campos:
+•	_id (ObjectId): Identificador único de la mascota.
+•	name (String): Nombre de la mascota.
+•	species (String): Especie (perro, gato, etc.).
+•	breed (String, opcional): Raza.
+
+Hábitos: Define cada hábito como una “plantilla” o configuración principal: título, descripción, a quién pertenece (usuario o mascota) y cómo se repite (horarios, días, frecuencia).
+Campos:
+•	_id (ObjectId): Identificador único del hábito.
+•	title (String): Nombre del hábito (ej. “Tomar agua”, “Pasear al perro”).
+•	description (String, opcional): Detalle del hábito.
+•	targetType (String): Indica a quién aplica el hábito.
+•	Valores: "USER" o "PET".
+
 
