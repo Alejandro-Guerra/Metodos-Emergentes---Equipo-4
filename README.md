@@ -96,53 +96,117 @@ El proyecto se considera **fallido** debido a retrasos constantes, falta de func
 - Documentado  
 
 
-## Backlog Inicial del Proyecto
+## Backlog Inicial del Proyecto (HABITOS)
 
-### EPIC 1: Organización del Proyecto
-- **HU-01:** Como equipo, queremos organizar el repositorio para trabajar de forma ordenada.
-- **HU-02:** Como equipo, queremos definir una estrategia de ramas en Git para evitar conflictos.
+# Product Backlog — Proyecto Equipo 4
 
-### EPIC 2: Funcionalidades Básicas
-- **HU-03:** Como usuario, quiero registrarme en el sistema.
-- **HU-04:** Como usuario, quiero iniciar sesión para acceder a mis tareas.
-- **HU-05:** Como usuario, quiero visualizar mis tareas asignadas.
+## Descripción general
+Aplicación web para la gestión de hábitos personales y mascotas virtuales.  
+El sistema es multiusuario y permite registrar hábitos, escribir un diario personal y administrar mascotas con estados de salud y felicidad.
 
-### EPIC 3: Calidad y Control
-- **HU-06:** Como equipo, queremos validar errores de entrada de datos.
-- **HU-07:** Como equipo, queremos realizar pruebas básicas del sistema.
+**Tecnologías utilizadas**
+- Frontend: HTML, CSS, React
+- Backend: Node.js
+- Base de datos: MongoDB
 
+## EA — Sesión (Login / Registro)
 
-## Iteraciones y Objetivos por Sprint
-
-### Sprint 1
-- **Duración:** 1 semana  
-- **Objetivo:** Organizar el proyecto y establecer bases técnicas.
-
-**Tareas principales:**
-- Crear estructura del repositorio  
-- Definir roles  
-- Configurar tablero Kanban  
-- Definir estrategia de ramas  
+- Registro de usuarios con nombre, correo electrónico y contraseña
+- Validación de campos obligatorios
+- Inicio de sesión con verificación de credenciales
+- Manejo de errores de autenticación
+- Cierre de sesión
+- Encriptación de contraseñas
 
 
-### Sprint 2
-- **Duración:** 1 semana  
-- **Objetivo:** Desarrollar el MVP del sistema.
+## EB — Mis Mascotas
 
-**Tareas principales:**
-- Registro de usuarios  
-- Inicio de sesión  
-- Visualización básica de tareas  
+- Visualización de la sección "Mis Mascotas"
+- Mensaje informativo cuando no existen mascotas registradas
+- Registro de mascota con nombre y tipo
+- Almacenamiento de mascotas en la base de datos
+- Visualización del estado de salud y felicidad de la mascota
+- Acción de alimentar mascota
+- Actualización automática del estado de la mascota
+- Edición de datos de la mascota
+- Eliminación de mascotas
 
 
-### Sprint 3
-- **Duración:** 1 semana  
-- **Objetivo:** Mejorar calidad y estabilidad.
+## EC — Mis Hábitos
 
-**Tareas principales:**
-- Validaciones  
-- Pruebas  
-- Corrección de errores  
-- Documentación final  
+- Visualización de la sección "Mis Hábitos"
+- Mensaje "No hay hábitos" cuando la lista está vacía
+- Registro de hábitos con nombre, descripción e ícono
+- Almacenamiento de hábitos en la base de datos
+- Visualización de la lista de hábitos
+- Edición de hábitos
+- Eliminación de hábitos
+- Posibilidad de agregar múltiples hábitos
+
+
+## ED — Mi Diario
+
+- Visualización de la sección "Diario"
+- Creación de nuevas entradas
+- Registro de la fecha de la entrada
+- Selección del estado de ánimo
+- Escritura del pensamiento del día
+- Almacenamiento de entradas en la base de datos
+- Visualización del historial de entradas
+- Edición de entradas
+- Eliminación de entradas
+
+
+## EE — Backend y Base de Datos
+
+- Configuración del servidor Node.js con Express
+- Conexión a MongoDB
+- Creación de modelos de datos:
+  - Usuario
+  - Mascota
+  - Hábito
+  - Diario
+- Implementación de autenticación con JWT
+- CRUD completo para cada módulo
+- Asociación de datos por usuario (sistema multiusuario)
+
+
+## EF — Frontend
+
+- Estructura base de navegación
+- Rutas protegidas para usuarios autenticados
+- Formularios con validación
+- Interfaces para:
+  - Sesión
+  - Mis Mascotas
+  - Mis Hábitos
+  - Mi Diario
+- Manejo de estados de carga y error
+
+
+## EG — Requisitos No Funcionales
+
+- Validación y sanitización de datos
+- Manejo de errores del sistema
+- Documentación del proyecto
+- Archivo README
+- Datos de prueba
+- Guía básica de despliegue
+
+
+## Prioridad de Desarrollo
+
+1. Autenticación y estructura base del sistema
+2. Gestión de mascotas
+3. Gestión de hábitos
+4. Diario personal
+5. Optimización, edición de datos y documentación
+
+
+## Estado del Backlog
+
+- Backlog inicial definido
+- Basado en diagramas de flujo del sistema
+- Listo para planificación Scrum o Kanban
 
 
