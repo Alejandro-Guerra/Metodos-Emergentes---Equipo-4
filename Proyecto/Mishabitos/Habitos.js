@@ -1,4 +1,3 @@
-
 const btnAbrirModal = document.getElementById("btnAbrirModal");
 const btnPrimerHabito = document.getElementById("btnPrimerHabito");
 
@@ -17,8 +16,11 @@ const listSection = document.getElementById("listSection");
 const cards = document.getElementById("cards");
 const habitosCount = document.getElementById("habitosCount");
 
-let selectedIcon = "🎯";
+const btnCrear = document.getElementById("btnCrear");
+const tituloModal = document.getElementById("tituloModal");
 
+let selectedIcon = "🎯";
+let editingId = null; 
 function obtenerHabitos() {
   try {
     const raw = localStorage.getItem("habitos");
@@ -30,6 +32,30 @@ function obtenerHabitos() {
 
 function guardarHabitos(lista) {
   localStorage.setItem("habitos", JSON.stringify(lista));
+}
+
+function abrirModalCrear() {
+  editingId = null;
+  if (tituloModal) tituloModal.textContent = "Agregar Nuevo Hábito";
+  if (btnCrear) btnCrear.textContent = "Crear Hábito";
+  limpiarForm();
+  abrirModal();
+}
+
+function abrirModalEditar(habito) {
+  editingId = habito.id;
+  if (tituloModal) tituloModal.textContent = "Editar Hábito";
+  if (btnCrear) btnCrear.textContent = "Guardar Cambios";
+
+  if (nombreHabito) nombreHabito.value = habito.nombre || "";
+  if (descHabito) descHabito.value = habito.descripcion || "";
+
+  selectedIcon = habito.icono || "🎯";
+  document.querySelectorAll(".icon-tile").forEach(el => {
+    el.classList.toggle("selected", el.dataset.icon === selectedIcon);
+  });
+
+  abrirModal();
 }
 
 function abrirModal() {
@@ -47,8 +73,7 @@ function limpiarForm() {
   if (descHabito) descHabito.value = "";
   selectedIcon = "🎯";
   document.querySelectorAll(".icon-tile").forEach(el => el.classList.remove("selected"));
-  const def = document.querySelector('.icon-tile[data-icon="🎯"]');
-  def?.classList.add("selected");
+  document.querySelector('.icon-tile[data-icon="🎯"]')?.classList.add("selected");
 }
 
 function renderHabitos() {
@@ -70,11 +95,18 @@ function renderHabitos() {
 
     const card = document.createElement("article");
     card.className = "card";
+    card.dataset.id = h.id;
+
     card.innerHTML = `
       <div class="card-top">
         <div>
           <h4><span class="icon">${h.icono || "🎯"}</span> ${escapeHtml(h.nombre)}</h4>
           <p class="desc">${h.descripcion ? escapeHtml(h.descripcion) : "Sin descripción"}</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn-mini" data-action="edit" title="Editar">✏️</button>
+          <button class="btn-mini btn-danger" data-action="delete" title="Eliminar">🗑️</button>
         </div>
       </div>
 
@@ -112,7 +144,7 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
-function crearHabito() {
+function guardarDesdeModal() {
   const nombre = (nombreHabito?.value || "").trim();
   const descripcion = (descHabito?.value || "").trim();
 
@@ -125,28 +157,51 @@ function crearHabito() {
   errorNombre?.classList.remove("show");
 
   const habitos = obtenerHabitos();
-  habitos.push({
-    id: (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())),
-    nombre,
-    descripcion,
-    icono: selectedIcon,
-    creadoEn: new Date().toISOString()
-  });
+
+  if (editingId) {
+    const idx = habitos.findIndex(h => h.id === editingId);
+    if (idx !== -1) {
+      habitos[idx] = {
+        ...habitos[idx],
+        nombre,
+        descripcion,
+        icono: selectedIcon
+      };
+    }
+  } else {
+    habitos.push({
+      id: (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())),
+      nombre,
+      descripcion,
+      icono: selectedIcon,
+      creadoEn: new Date().toISOString()
+    });
+  }
 
   guardarHabitos(habitos);
   cerrarModal();
   limpiarForm();
+  editingId = null;
   renderHabitos();
 }
 
-btnAbrirModal?.addEventListener("click", abrirModal);
-btnPrimerHabito?.addEventListener("click", abrirModal);
+function eliminarHabito(id) {
+  const ok = confirm("¿Seguro que quieres eliminar este hábito?");
+  if (!ok) return;
 
-btnCerrarModal?.addEventListener("click", cerrarModal);
-btnCancelar?.addEventListener("click", cerrarModal);
+  const habitos = obtenerHabitos().filter(h => h.id !== id);
+  guardarHabitos(habitos);
+  renderHabitos();
+}
+
+btnAbrirModal?.addEventListener("click", abrirModalCrear);
+btnPrimerHabito?.addEventListener("click", abrirModalCrear);
+
+btnCerrarModal?.addEventListener("click", () => { cerrarModal(); editingId = null; });
+btnCancelar?.addEventListener("click", () => { cerrarModal(); editingId = null; });
 
 backdrop?.addEventListener("click", (e) => {
-  if (e.target === backdrop) cerrarModal();
+  if (e.target === backdrop) { cerrarModal(); editingId = null; }
 });
 
 iconGrid?.addEventListener("click", (e) => {
@@ -157,7 +212,23 @@ iconGrid?.addEventListener("click", (e) => {
   selectedIcon = tile.dataset.icon || "🎯";
 });
 
-document.getElementById("btnCrear")?.addEventListener("click", crearHabito);
+btnCrear?.addEventListener("click", guardarDesdeModal);
+
+cards?.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+
+  const action = btn.dataset.action;
+  const card = btn.closest(".card");
+  const id = card?.dataset.id;
+  if (!id) return;
+
+  const habitos = obtenerHabitos();
+  const habito = habitos.find(h => h.id === id);
+
+  if (action === "edit" && habito) abrirModalEditar(habito);
+  if (action === "delete") eliminarHabito(id);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.icon-tile[data-icon="🎯"]')?.classList.add("selected");

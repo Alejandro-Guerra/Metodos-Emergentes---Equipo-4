@@ -22,7 +22,6 @@ body{
   color:var(--text);
 }
 
-/* Topbar */
 .topbar{
   background:#fff;
   border-bottom:1px solid var(--border);
@@ -39,7 +38,6 @@ body{
 .greeting h1{ margin:0;font-size:20px; }
 .greeting p{ margin:2px 0 0;color:var(--muted); }
 
-/* Navbar */
 .nav{
   background:#fff;
   border-bottom:1px solid var(--border);
@@ -62,7 +60,6 @@ body{
   border-bottom-color:var(--primary);
 }
 
-/* Header sección */
 .section{
   background:var(--panel);
   padding:24px 0;
@@ -78,7 +75,6 @@ body{
 .section h2{ margin:0;font-size:34px; }
 .section .sub{ margin-top:6px;color:var(--muted); }
 
-/* Botón */
 .btn{
   border:none;
   cursor:pointer;
@@ -93,7 +89,6 @@ body{
 }
 .btn-primary:hover{ background:var(--primary-dark); }
 
-/* Contenido */
 .main{
   max-width:var(--max);
   margin:-10px auto 40px;
@@ -106,7 +101,6 @@ body{
   min-height:360px;
   padding:28px;
 }
-/* Estado vacío */
 .empty{
   min-height:300px;
   display:grid;
@@ -137,7 +131,6 @@ body{
   color: var(--muted);
   max-width:520px;
 }
-/* Modal */
 .backdrop{
   position:fixed;
   inset:0;
@@ -247,7 +240,6 @@ textarea{
 }
 
 .error.show{ display:block; }
-/* Lista */
 .list{ display:none; }
 
 .count{
@@ -262,7 +254,6 @@ textarea{
   gap:18px;
 }
 
-/* Tarjeta hábito */
 .card{
   border:1px solid var(--border);
   border-radius: var(--radius);
@@ -327,7 +318,6 @@ textarea{
   background: var(--primary);
 }
 
-/* Días */
 .days{
   display:flex;
   gap:18px;
@@ -352,4 +342,31 @@ textarea{
 .dot.on{
   border-color: var(--primary);
   background: rgba(16,183,179,.20);
+}
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+.btn-mini{
+  padding:10px 12px;
+  border-radius:12px;
+  font-weight:700;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  color: var(--text);
+}
+
+.btn-mini:hover{
+  border-color: rgba(16,183,179,.35);
+}
+
+.btn-danger{
+  border-color: rgba(185,28,28,.25);
+  color:#b91c1c;
+}
+
+.btn-danger:hover{
+  border-color: rgba(185,28,28,.45);
 }
