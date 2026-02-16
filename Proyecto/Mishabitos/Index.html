@@ -36,7 +36,7 @@
                 <h2>Mis Hábitos</h2>
                 <p class="sub">Organiza y mejora tus rutinas</p>
             </div>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" id="btnAbrirModal">
                 + Agregar Hábito
             </button>
         </div>
@@ -60,6 +60,46 @@
     </main>
 
     <script src="Habitos.js"></script>
+    <!-- Modal Agregar Hábito -->
+    <div class="backdrop" id="backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+            <div class="modal-head">
+                <h3 id="tituloModal">Agregar Nuevo Hábito</h3>
+                <button class="icon-btn" id="btnCerrarModal" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="field">
+                <label for="nombreHabito">Nombre del hábito</label>
+                <input id="nombreHabito" type="text" placeholder="Ej: Hacer ejercicio" />
+                <div class="error" id="errorNombre">El nombre del hábito es obligatorio.</div>
+            </div>
+
+            <div class="field">
+                <label for="descHabito">Descripción (opcional)</label>
+                <textarea id="descHabito" placeholder="Ej: 30 minutos diarios"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Selecciona un ícono</label>
+                <div class="icons" id="iconGrid">
+                    <div class="icon-tile" data-icon="🏃">🏃</div>
+                    <div class="icon-tile" data-icon="🥗">🥗</div>
+                    <div class="icon-tile" data-icon="📚">📚</div>
+                    <div class="icon-tile" data-icon="🧘">🧘</div>
+                    <div class="icon-tile" data-icon="💧">💧</div>
+                    <div class="icon-tile" data-icon="🛏️">🛏️</div>
+                    <div class="icon-tile" data-icon="🧠">🧠</div>
+                    <div class="icon-tile" data-icon="🎯">🎯</div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
+                <button class="btn btn-primary btn-full" id="btnCrear">Crear Hábito</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
