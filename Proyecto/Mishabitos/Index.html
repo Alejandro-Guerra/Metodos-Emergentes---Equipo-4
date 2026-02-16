@@ -45,7 +45,7 @@
     <!-- Contenido principal -->
     <main class="main">
         <div class="panel">
-            <section class="empty">
+            <section class="empty" id="emptyState">
                 <div class="plus">+</div>
                 <h3>No tienes hábitos aún</h3>
                 <p>Comienza tu viaje hacia una vida más saludable agregando tu primer hábito</p>
@@ -54,6 +54,12 @@
                     Crear mi primer hábito
                 </button>
             </section>
+            <!-- Lista de hábitos -->
+            <section class="list" id="listSection">
+                <p class="count" id="habitosCount">0 hábitos activos</p>
+                <div class="cards" id="cards"></div>
+            </section>
+
 
         </div>
 
