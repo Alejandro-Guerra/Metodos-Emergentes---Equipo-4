@@ -106,3 +106,34 @@ body{
   min-height:360px;
   padding:28px;
 }
+/* Estado vacío */
+.empty{
+  min-height:300px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:40px 10px;
+}
+
+.empty .plus{
+  width:74px;
+  height:74px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background: rgba(16,183,179,.12);
+  color: var(--primary);
+  font-size:34px;
+  margin:0 auto 10px;
+}
+
+.empty h3{
+  margin:10px 0 6px;
+  font-size:22px;
+}
+
+.empty p{
+  margin:0 0 18px;
+  color: var(--muted);
+  max-width:520px;
+}
