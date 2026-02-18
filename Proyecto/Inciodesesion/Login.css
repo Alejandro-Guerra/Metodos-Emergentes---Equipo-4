@@ -1,0 +1,89 @@
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#F6FBFF;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.login-container{
+  width:100%;
+  max-width:400px;
+  padding:20px;
+}
+
+.login-card{
+  background:#fff;
+  padding:35px 30px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(15,23,42,.08);
+}
+
+h2{
+  margin-top:0;
+  text-align:center;
+  margin-bottom:25px;
+  color:#0F172A;
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  color:#334155;
+}
+
+input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid #E2E8F0;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:#10B7B3;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#10B7B3;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{
+  background:#0EA5A3;
+}
+
+.error{
+  font-size:13px;
+  color:#b91c1c;
+  margin-top:6px;
+  display:none;
+}
+
+.error.show{
+  display:block;
+}
+
+.global-error{
+  text-align:center;
+  margin-bottom:12px;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio de Sesión</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../Mishabitos/Habitos.css">
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="avatar">A</div>
+    <div class="greeting">
+      <h1>Bienvenido</h1>
+      <p>Inicia sesión para continuar</p>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../Mishabitos/Index.html">Mis Hábitos</a>
+      <a href="../Mismascotas/Index.html">Mis Mascotas</a>
+      <a class="active" href="../Iniciodesesion/Index.html">Inicio de Sesión</a>
+      <a href="../Configuracion/Index.html">Configuración</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="section">
+    <div class="wrap">
+      <div>
+        <h2>Inicio de Sesión</h2>
+        <p class="sub">Accede a tu cuenta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO -->
+  <main class="main">
+    <div class="panel">
+
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" placeholder="admin@demo.com">
+        <div class="error" id="errorEmail">El correo es obligatorio</div>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="password" placeholder="123456">
+        <div class="error" id="errorPassword">La contraseña es obligatoria</div>
+      </div>
+
+      <div class="error" id="errorGlobal">
+        Credenciales incorrectas
+      </div>
+
+      <button class="btn btn-primary" id="btnLogin">
+        Ingresar
+      </button>
+
+    </div>
+  </main>
+
+  <script src="Login.js"></script>
+
+</body>
+</html>
