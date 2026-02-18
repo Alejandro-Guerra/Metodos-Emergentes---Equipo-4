@@ -1,111 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Mis Hábitos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Habitos.css">
+  <meta charset="UTF-8">
+  <title>Mis Hábitos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Habitos.css">
 </head>
 
 <body>
 
-    <!-- Topbar -->
-    <header class="topbar">
-        <div class="avatar">A</div>
-        <div class="greeting">
-            <h1>Hola, aaa! 👋</h1>
-            <p>Administra tus hábitos diarios</p>
-        </div>
-    </header>
-
-    <!-- Navbar -->
-    <nav class="nav">
-        <div class="wrap">
-            <a class="active" href="../Mishabitos/Index.html">Mis Hábitos</a>
-            <a href="../Mismascotas/Index.html">Mis Mascotas</a>
-            <a href="../Iniciodesesion/Index.html">Diario</a>
-            <a href="../Configuracion/Index.html">Configuración</a>
-        </div>
-    </nav>
-
-    <!-- Header sección -->
-    <section class="section">
-        <div class="wrap">
-            <div>
-                <h2>Mis Hábitos</h2>
-                <p class="sub">Organiza y mejora tus rutinas</p>
-            </div>
-            <button class="btn btn-primary" id="btnAbrirModal">
-                + Agregar Hábito
-            </button>
-        </div>
-    </section>
-
-    <!-- Contenido principal -->
-    <main class="main">
-        <div class="panel">
-            <section class="empty" id="emptyState">
-                <div class="plus">+</div>
-                <h3>No tienes hábitos aún</h3>
-                <p>Comienza tu viaje hacia una vida más saludable agregando tu primer hábito</p>
-
-                <button class="btn btn-primary" id="btnPrimerHabito">
-                    Crear mi primer hábito
-                </button>
-            </section>
-            <!-- Lista de hábitos -->
-            <section class="list" id="listSection">
-                <p class="count" id="habitosCount">0 hábitos activos</p>
-                <div class="cards" id="cards"></div>
-            </section>
-
-
-        </div>
-
-    </main>
-
-    <script src="Habitos.js"></script>
-    <!-- Modal Agregar Hábito -->
-    <div class="backdrop" id="backdrop">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
-            <div class="modal-head">
-                <h3 id="tituloModal">Agregar Nuevo Hábito</h3>
-                <button class="icon-btn" id="btnCerrarModal" aria-label="Cerrar">✕</button>
-            </div>
-
-            <div class="field">
-                <label for="nombreHabito">Nombre del hábito</label>
-                <input id="nombreHabito" type="text" placeholder="Ej: Hacer ejercicio" />
-                <div class="error" id="errorNombre">El nombre del hábito es obligatorio.</div>
-            </div>
-
-            <div class="field">
-                <label for="descHabito">Descripción (opcional)</label>
-                <textarea id="descHabito" placeholder="Ej: 30 minutos diarios"></textarea>
-            </div>
-
-            <div class="field">
-                <label>Selecciona un ícono</label>
-                <div class="icons" id="iconGrid">
-                    <div class="icon-tile" data-icon="🏃">🏃</div>
-                    <div class="icon-tile" data-icon="🥗">🥗</div>
-                    <div class="icon-tile" data-icon="📚">📚</div>
-                    <div class="icon-tile" data-icon="🧘">🧘</div>
-                    <div class="icon-tile" data-icon="💧">💧</div>
-                    <div class="icon-tile" data-icon="🛏️">🛏️</div>
-                    <div class="icon-tile" data-icon="🧠">🧠</div>
-                    <div class="icon-tile" data-icon="🎯">🎯</div>
-                </div>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
-                <button class="btn btn-primary btn-full" id="btnCrear">Crear Hábito</button>
-            </div>
-        </div>
+  <header class="topbar">
+    <div class="avatar">A</div>
+    <div class="greeting">
+      <h1>Hola</h1>
+      <p>Administra tus hábitos diarios</p>
     </div>
+  </header>
 
+  <nav class="nav">
+    <div class="wrap">
+      <a class="active" href="../Mishabitos/Index.html">Mis Hábitos</a>
+      <a href="../Mismascotas/Index.html">Mis Mascotas</a>
+      <a href="../Iniciodesesion/Index.html">Diario</a>
+      <a href="../Configuracion/Index.html">Configuración</a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="wrap">
+      <div>
+        <h2>Mis Hábitos</h2>
+        <p class="sub">Organiza y mejora tus rutinas</p>
+      </div>
+      <button class="btn btn-primary" id="btnAbrirModal">
+        + Agregar Hábito
+      </button>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="panel">
+
+      <section class="empty" id="emptyState">
+        <div class="plus">+</div>
+        <h3>No tienes hábitos aún</h3>
+        <p>Comienza tu viaje hacia una vida más saludable agregando tu primer hábito</p>
+
+        <button class="btn btn-primary" id="btnPrimerHabito">
+          Crear mi primer hábito
+        </button>
+      </section>
+
+      <section class="list" id="listSection">
+        <p class="count" id="habitosCount">0 hábitos activos</p>
+        <div class="cards" id="cards"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="backdrop" id="backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+      <div class="modal-head">
+        <h3 id="tituloModal">Agregar Nuevo Hábito</h3>
+        <button class="icon-btn" id="btnCerrarModal" aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="field">
+        <label for="nombreHabito">Nombre del hábito</label>
+        <input id="nombreHabito" type="text" placeholder="Ej: Hacer ejercicio" />
+        <div class="error" id="errorNombre">El nombre del hábito es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label for="descHabito">Descripción (opcional)</label>
+        <textarea id="descHabito" placeholder="Ej: 30 minutos diarios"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Selecciona un ícono</label>
+        <div class="icons" id="iconGrid">
+          <div class="icon-tile" data-icon="🏃">🏃</div>
+          <div class="icon-tile" data-icon="🥗">🥗</div>
+          <div class="icon-tile" data-icon="📚">📚</div>
+          <div class="icon-tile" data-icon="🧘">🧘</div>
+          <div class="icon-tile" data-icon="💧">💧</div>
+          <div class="icon-tile" data-icon="🛏️">🛏️</div>
+          <div class="icon-tile" data-icon="🧠">🧠</div>
+          <div class="icon-tile" data-icon="🎯">🎯</div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
+        <button class="btn btn-primary btn-full" id="btnCrear" type="button">Crear Hábito</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Habitos.js"></script>
 </body>
-
 </html>

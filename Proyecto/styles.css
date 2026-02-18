@@ -20,7 +20,6 @@ body{
   color:var(--text);
 }
 
-/* Topbar */
 .topbar{
   background:#fff;
   border-bottom:1px solid var(--border);
@@ -50,7 +49,6 @@ body{
   color:var(--muted);
 }
 
-/* Navbar */
 .nav{
   background:#fff;
   border-bottom:1px solid var(--border);
@@ -75,7 +73,6 @@ body{
   color:var(--primary);
 }
 
-/* Main */
 .main{
   max-width:var(--max);
   margin:40px auto;
