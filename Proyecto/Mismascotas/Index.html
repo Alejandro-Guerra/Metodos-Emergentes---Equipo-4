@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Mascotas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Mascotas.css">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="avatar">A</div>
+    <div class="greeting">
+      <h1>Hola</h1>
+      <p>Administra tus mascotas</p>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../Mishabitos/Index.html">Mis Hábitos</a>
+      <a class="active" href="../Mismascotas/Index.html">Mis Mascotas</a>
+      <a href="../Iniciodesesion/Index.html">Diario</a>
+      <a href="../Configuracion/Index.html">Configuración</a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="wrap">
+      <div>
+        <h2>Mis Mascotas</h2>
+        <p class="sub">Cuida y monitorea tus mascotas</p>
+      </div>
+      <button class="btn btn-primary" id="btnAbrirModal">
+        + Agregar Mascota
+      </button>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="panel">
+
+      <section class="empty" id="emptyState">
+        <div class="plus">🐾</div>
+        <h3>No tienes mascotas aún</h3>
+        <p>Agrega tu primera mascota para comenzar</p>
+        <button class="btn btn-primary" id="btnPrimerMascota">
+          Crear mi primera mascota
+        </button>
+      </section>
+
+      <section class="list" id="listSection">
+        <p class="count" id="mascotasCount">0 mascotas activas</p>
+        <div class="cards" id="cards"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="backdrop" id="backdrop">
+    <div class="modal">
+
+      <div class="modal-head">
+        <h3 id="tituloModal">Agregar Mascota</h3>
+        <button class="icon-btn" id="btnCerrarModal">✕</button>
+      </div>
+
+      <div class="field">
+        <label>Nombre</label>
+        <input id="nombreMascota" type="text" placeholder="Ej: Max">
+        <div class="error" id="errorNombre">El nombre es obligatorio</div>
+      </div>
+
+      <div class="field">
+        <label>Tipo</label>
+        <input id="tipoMascota" type="text" placeholder="Ej: Perro">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
+        <button class="btn btn-primary btn-full" id="btnCrear" type="button">
+          Guardar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="Mascotas.js"></script>
+
+</body>
+</html>
