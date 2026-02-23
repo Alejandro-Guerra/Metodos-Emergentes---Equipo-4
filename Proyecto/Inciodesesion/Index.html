@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Iniciar Sesión</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Iniciodesesion.css" />
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- LADO IZQUIERDO — decorativo -->
+    <div class="side-brand">
+      <div class="brand-content">
+        <div class="brand-logo">✦</div>
+        <h2 class="brand-title">Tu espacio<br/>personal</h2>
+        <p class="brand-desc">Organiza tus hábitos, cuida tus mascotas y lleva tu diario, todo en un solo lugar.</p>
+        <div class="brand-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LADO DERECHO — formulario -->
+    <div class="side-form">
+      <div class="form-box">
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab active" id="tabLogin" type="button">Iniciar Sesión</button>
+          <button class="tab" id="tabRegister" type="button">Crear Cuenta</button>
+        </div>
+
+        <!-- ── LOGIN ── -->
+        <form id="loginForm" class="form" novalidate>
+          <div class="form-header">
+            <h1>Bienvenido 👋</h1>
+            <p>Ingresa tus datos para continuar</p>
+          </div>
+
+          <div class="field">
+            <label for="loginEmail">Correo electrónico</label>
+            <div class="input-wrap">
+              <span class="input-icon">✉️</span>
+              <input id="loginEmail" type="email" placeholder="correo@ejemplo.com" autocomplete="email" />
+            </div>
+            <div class="error" id="loginEmailErr">Ingresa un correo válido.</div>
+          </div>
+
+          <div class="field">
+            <label for="loginPass">Contraseña</label>
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input id="loginPass" type="password" placeholder="Tu contraseña" autocomplete="current-password" />
+              <button class="toggle-pass" type="button" data-target="loginPass" aria-label="Ver contraseña">👁️</button>
+            </div>
+            <div class="error" id="loginPassErr">Ingresa tu contraseña.</div>
+          </div>
+
+          <div class="error form-error" id="loginFormErr"></div>
+
+          <button class="btn btn-primary btn-block" type="submit">Iniciar Sesión</button>
+        </form>
+
+        <!-- ── REGISTRO ── -->
+        <form id="registerForm" class="form hidden" novalidate>
+          <div class="form-header">
+            <h1>Crear cuenta ✨</h1>
+            <p>Regístrate para comenzar</p>
+          </div>
+
+          <div class="field">
+            <label for="regName">Nombre completo</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input id="regName" type="text" placeholder="Tu nombre" autocomplete="name" />
+            </div>
+            <div class="error" id="regNameErr">El nombre es obligatorio.</div>
+          </div>
+
+          <div class="field">
+            <label for="regEmail">Correo electrónico</label>
+            <div class="input-wrap">
+              <span class="input-icon">✉️</span>
+              <input id="regEmail" type="email" placeholder="correo@ejemplo.com" autocomplete="email" />
+            </div>
+            <div class="error" id="regEmailErr">Ingresa un correo válido.</div>
+          </div>
+
+          <div class="field">
+            <label for="regPass">Contraseña</label>
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input id="regPass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+              <button class="toggle-pass" type="button" data-target="regPass" aria-label="Ver contraseña">👁️</button>
+            </div>
+            <div class="error" id="regPassErr">La contraseña debe tener al menos 6 caracteres.</div>
+          </div>
+
+          <!-- Indicador de seguridad -->
+          <div class="strength-wrap">
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel">Ingresa una contraseña</span>
+          </div>
+
+          <div class="field">
+            <label for="regPassConfirm">Confirmar contraseña</label>
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input id="regPassConfirm" type="password" placeholder="Repite tu contraseña" autocomplete="new-password" />
+              <button class="toggle-pass" type="button" data-target="regPassConfirm" aria-label="Ver contraseña">👁️</button>
+            </div>
+            <div class="error" id="regPassConfirmErr">Las contraseñas no coinciden.</div>
+          </div>
+
+          <div class="error form-error" id="regFormErr"></div>
+
+          <button class="btn btn-primary btn-block" type="submit">Crear Cuenta</button>
+        </form>
+
+      </div><!-- /form-box -->
+    </div><!-- /side-form -->
+
+  </div><!-- /page -->
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="Iniciodesesion.js"></script>
+</body>
+</html>
