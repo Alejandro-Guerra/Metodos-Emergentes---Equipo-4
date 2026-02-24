@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* ── CONFIG API ── */
+  const API_URL = "http://localhost:3000";
+
   /* ── ELEMENTOS ── */
   const tabLogin     = document.getElementById("tabLogin");
   const tabRegister  = document.getElementById("tabRegister");
@@ -8,22 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast        = document.getElementById("toast");
 
   // Login
-  const loginEmail   = document.getElementById("loginEmail");
-  const loginPass    = document.getElementById("loginPass");
+  const loginEmail    = document.getElementById("loginEmail");
+  const loginPass     = document.getElementById("loginPass");
   const loginEmailErr = document.getElementById("loginEmailErr");
   const loginPassErr  = document.getElementById("loginPassErr");
   const loginFormErr  = document.getElementById("loginFormErr");
 
   // Registro
-  const regName          = document.getElementById("regName");
-  const regEmail         = document.getElementById("regEmail");
-  const regPass          = document.getElementById("regPass");
-  const regPassConfirm   = document.getElementById("regPassConfirm");
-  const regNameErr       = document.getElementById("regNameErr");
-  const regEmailErr      = document.getElementById("regEmailErr");
-  const regPassErr       = document.getElementById("regPassErr");
-  const regPassConfirmErr= document.getElementById("regPassConfirmErr");
-  const regFormErr       = document.getElementById("regFormErr");
+  const regName           = document.getElementById("regName");
+  const regEmail          = document.getElementById("regEmail");
+  const regPass           = document.getElementById("regPass");
+  const regPassConfirm    = document.getElementById("regPassConfirm");
+  const regNameErr        = document.getElementById("regNameErr");
+  const regEmailErr       = document.getElementById("regEmailErr");
+  const regPassErr        = document.getElementById("regPassErr");
+  const regPassConfirmErr = document.getElementById("regPassConfirmErr");
+  const regFormErr        = document.getElementById("regFormErr");
 
   const strengthFill  = document.getElementById("strengthFill");
   const strengthLabel = document.getElementById("strengthLabel");
@@ -49,16 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     els.forEach(el => el.classList.remove("show"));
   }
 
-  /* ── USUARIOS (localStorage) ── */
-  function getUsers() {
-    try { return JSON.parse(localStorage.getItem("usuarios")) || []; }
-    catch { return []; }
-  }
-
-  function saveUsers(arr) {
-    localStorage.setItem("usuarios", JSON.stringify(arr));
-  }
-
   function saveSession(user) {
     localStorage.setItem("sesionActiva", JSON.stringify({
       nombre: user.nombre,
@@ -73,8 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
     tabRegister.classList.toggle("active", !isLogin);
     loginForm.classList.toggle("hidden", !isLogin);
     registerForm.classList.toggle("hidden", isLogin);
-    clearErrors(loginEmailErr, loginPassErr, loginFormErr,
-                regNameErr, regEmailErr, regPassErr, regPassConfirmErr, regFormErr);
+    clearErrors(
+      loginEmailErr, loginPassErr, loginFormErr,
+      regNameErr, regEmailErr, regPassErr, regPassConfirmErr, regFormErr
+    );
   }
 
   tabLogin.addEventListener("click",    () => switchTab("login"));
@@ -118,8 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return score;
   }
 
-  /* ── LOGIN ── */
-  loginForm.addEventListener("submit", (e) => {
+  /* ── LOGIN (MongoDB) ── */
+  loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearErrors(loginEmailErr, loginPassErr, loginFormErr);
 
@@ -131,23 +126,35 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!pass)                           { showError(loginPassErr);  valid = false; }
     if (!valid) return;
 
-    const users = getUsers();
-    const user  = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    try {
+      const resp = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          correo_electronico: email,
+          contraseña: pass
+        })
+      });
 
-    if (!user) {
-      showError(loginFormErr, "No encontramos una cuenta con ese correo."); return;
-    }
-    if (user.password !== pass) {
-      showError(loginFormErr, "Contraseña incorrecta. Inténtalo de nuevo."); return;
-    }
+      const data = await resp.json();
 
-    saveSession(user);
-    showToast(`👋 ¡Hola de nuevo, ${user.nombre.split(" ")[0]}!`);
-    setTimeout(() => { window.location.href = "../Mishabitos/Index.html"; }, 1800);
+      if (!resp.ok) {
+        showError(loginFormErr, data.mensaje || "Error al iniciar sesión.");
+        return;
+      }
+
+      saveSession({ nombre: data.usuario.nombre, email: data.usuario.email });
+
+      showToast(`👋 ¡Hola de nuevo, ${data.usuario.nombre.split(" ")[0]}!`);
+      setTimeout(() => { window.location.href = "../Mishabitos/Index.html"; }, 1800);
+
+    } catch (err) {
+      showError(loginFormErr, "No se pudo conectar al servidor. ¿Está encendido el backend?");
+    }
   });
 
-  /* ── REGISTRO ── */
-  registerForm.addEventListener("submit", (e) => {
+  /* ── REGISTRO (MongoDB) ── */
+  registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearErrors(regNameErr, regEmailErr, regPassErr, regPassConfirmErr, regFormErr);
 
@@ -157,32 +164,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const passC   = regPassConfirm.value;
     let valid = true;
 
-    if (!nombre)                   { showError(regNameErr);  valid = false; }
-    if (!email || !isValidEmail(email)) { showError(regEmailErr, "Ingresa un correo válido."); valid = false; }
-    if (!pass || pass.length < 6)  { showError(regPassErr);  valid = false; }
-    if (!passC || passC !== pass)  { showError(regPassConfirmErr, "Las contraseñas no coinciden."); valid = false; }
+    if (!nombre)                             { showError(regNameErr);  valid = false; }
+    if (!email || !isValidEmail(email))      { showError(regEmailErr, "Ingresa un correo válido."); valid = false; }
+    if (!pass || pass.length < 6)            { showError(regPassErr);  valid = false; }
+    if (!passC || passC !== pass)            { showError(regPassConfirmErr, "Las contraseñas no coinciden."); valid = false; }
     if (!valid) return;
 
-    const users  = getUsers();
-    const exists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
-    if (exists) { showError(regFormErr, "Ya existe una cuenta con ese correo."); return; }
+    try {
+      const resp = await fetch(`${API_URL}/registro`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre_completo: nombre,
+          correo_electronico: email,
+          contraseña: pass,
+          confirmar_contraseña: passC
+        })
+      });
 
-    const newUser = {
-      id:       crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
-      nombre, email, password: pass,
-      creadoEn: new Date().toISOString()
-    };
+      const data = await resp.json();
 
-    users.push(newUser);
-    saveUsers(users);
-    saveSession(newUser);
+      if (!resp.ok) {
+        showError(regFormErr, data.mensaje || "Error al registrar.");
+        return;
+      }
 
-    registerForm.reset();
-    strengthFill.style.width  = "0%";
-    strengthLabel.textContent = "Ingresa una contraseña";
+      saveSession({ nombre, email });
 
-    showToast(`🎉 ¡Cuenta creada! Bienvenido, ${nombre.split(" ")[0]}`);
-    setTimeout(() => { window.location.href = "../Mishabitos/Index.html"; }, 1800);
+      registerForm.reset();
+      strengthFill.style.width  = "0%";
+      strengthLabel.textContent = "Ingresa una contraseña";
+
+      showToast(`🎉 ¡Cuenta creada! Bienvenido, ${nombre.split(" ")[0]}`);
+      setTimeout(() => { window.location.href = "../Mishabitos/Index.html"; }, 1800);
+
+    } catch (err) {
+      showError(regFormErr, "No se pudo conectar al servidor. ¿Está encendido el backend?");
+    }
   });
 
   /* ── Limpiar error al escribir ── */
@@ -198,4 +216,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-

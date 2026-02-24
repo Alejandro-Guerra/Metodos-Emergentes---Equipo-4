@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
+  if (!sesion) {
+    window.location.href = "../Iniciodesesion/Index.html";
+    return;
+  }
+
+  const tituloHola = document.querySelector("h1"); 
+  if (tituloHola) {
+    tituloHola.textContent = `Hola, ${sesion.nombre}`;
+  }
   const btnAbrirModal = document.getElementById("btnAbrirModal");
   const btnPrimerHabito = document.getElementById("btnPrimerHabito");
 
@@ -19,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnCrear = document.getElementById("btnCrear");
   const tituloModal = document.getElementById("tituloModal");
+
+  // ✅ (A) NUEVO: botón cerrar sesión
+  const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 
   let selectedIcon = "🎯";
   let editingId = null;
@@ -187,6 +200,16 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabitos();
   }
 
+  function cerrarSesion() {
+    const ok = confirm("Desea cerrar su sesión?");
+    if (!ok) return;
+
+    localStorage.removeItem("sesionActiva");
+    window.location.href = "../Inciodesesion/Index.html";
+  }
+
+  btnCerrarSesion?.addEventListener("click", cerrarSesion);
+
   btnAbrirModal.addEventListener("click", abrirModalCrear);
   btnPrimerHabito.addEventListener("click", abrirModalCrear);
 
@@ -227,4 +250,3 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.icon-tile[data-icon="🎯"]')?.classList.add("selected");
   renderHabitos();
 });
-

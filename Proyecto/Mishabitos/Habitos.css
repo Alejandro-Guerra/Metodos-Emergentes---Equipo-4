@@ -370,3 +370,13 @@ textarea{
 .btn-danger:hover{
   border-color: rgba(185,28,28,.45);
 }
+.btn-logout{
+  margin-left: auto;           
+  flex: 0 0 auto;               
+  padding: 10px 14px;
+}
+
+.btn-logout:hover{
+  border-color: rgba(16,183,179,.35);
+  color: var(--primary);
+}
