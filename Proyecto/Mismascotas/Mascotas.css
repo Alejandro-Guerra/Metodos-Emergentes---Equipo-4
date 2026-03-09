@@ -375,3 +375,126 @@ input{
 .error.show{
   display:block;
 }
+
+/* DIAS DE LA SEMANA */
+
+.dias{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:6px;
+}
+
+.dias label{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.dias input{
+  width:auto;
+}
+
+
+/* TARJETA MASCOTA */
+
+.pet-info{
+  margin:8px 0 14px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.pet-info span{
+  display:block;
+}
+
+
+/* BARRAS DE ESTADO EXTRA */
+
+.bar-energia{
+  background:linear-gradient(90deg,#60A5FA,#2563EB);
+}
+
+.bar-hambre{
+  background:linear-gradient(90deg,#FB923C,#EA580C);
+}
+
+
+/* BOTONES DE ACCIONES */
+
+.actions{
+  margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.btn-feed{
+  background:#22C55E;
+  color:white;
+  border:none;
+}
+
+.btn-feed:hover{
+  background:#16A34A;
+}
+
+.btn-edit{
+  background:#E0F2FE;
+  border:1px solid #BAE6FD;
+}
+
+.btn-notes{
+  background:#FEF3C7;
+  border:1px solid #FDE68A;
+}
+
+
+/* TARJETAS MAS BONITAS */
+
+.card h4{
+  font-size:20px;
+  font-weight:700;
+}
+
+.card p{
+  margin:4px 0;
+  font-size:14px;
+  color:var(--muted);
+}
+
+
+/* MODAL MAS SUAVE */
+
+.modal textarea{
+  width:100%;
+  min-height:70px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:10px;
+  resize:none;
+}
+
+
+/* ANIMACION TARJETAS */
+
+.card{
+  animation:fadeIn .3s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
