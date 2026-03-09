@@ -1,93 +1,399 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Mis Mascotas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Mascotas.css">
+<meta charset="UTF-8">
+<title>Mis Mascotas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="Mascotas.css">
 </head>
 
 <body>
 
-  <header class="topbar">
-    <div class="avatar">A</div>
-    <div class="greeting">
-      <h1>Hola</h1>
-      <p>Administra tus mascotas</p>
-    </div>
-  </header>
+<header class="topbar">
 
-  <nav class="nav">
-    <div class="wrap">
-      <a href="../Mishabitos/Index.html">Mis Hábitos</a>
-      <a class="active" href="../Mismascotas/Index.html">Mis Mascotas</a>
-      <a href="../Iniciodesesion/Index.html">Diario</a>
-      <a href="../Configuracion/Index.html">Configuración</a>
-    </div>
-  </nav>
+<div class="avatar">A</div>
 
-  <section class="section">
-    <div class="wrap">
-      <div>
-        <h2>Mis Mascotas</h2>
-        <p class="sub">Cuida y monitorea tus mascotas</p>
-      </div>
-      <button class="btn btn-primary" id="btnAbrirModal">
-        + Agregar Mascota
-      </button>
-    </div>
-  </section>
+<div class="greeting">
+<h1>Hola</h1>
+<p>Administra y cuida tus mascotas</p>
+</div>
 
-  <main class="main">
-    <div class="panel">
+</header>
 
-      <section class="empty" id="emptyState">
-        <div class="plus">🐾</div>
-        <h3>No tienes mascotas aún</h3>
-        <p>Agrega tu primera mascota para comenzar</p>
-        <button class="btn btn-primary" id="btnPrimerMascota">
-          Crear mi primera mascota
-        </button>
-      </section>
 
-      <section class="list" id="listSection">
-        <p class="count" id="mascotasCount">0 mascotas activas</p>
-        <div class="cards" id="cards"></div>
-      </section>
+<nav class="nav">
 
-    </div>
-  </main>
+<div class="wrap">
 
-  <div class="backdrop" id="backdrop">
-    <div class="modal">
+<a href="../Mishabitos/Index.html">Mis Hábitos</a>
 
-      <div class="modal-head">
-        <h3 id="tituloModal">Agregar Mascota</h3>
-        <button class="icon-btn" id="btnCerrarModal">✕</button>
-      </div>
+<a class="active" href="../Mismascotas/Index.html">
+Mis Mascotas
+</a>
 
-      <div class="field">
-        <label>Nombre</label>
-        <input id="nombreMascota" type="text" placeholder="Ej: Max">
-        <div class="error" id="errorNombre">El nombre es obligatorio</div>
-      </div>
+<a href="../Iniciodesesion/Index.html">Diario</a>
 
-      <div class="field">
-        <label>Tipo</label>
-        <input id="tipoMascota" type="text" placeholder="Ej: Perro">
-      </div>
+<a href="../Configuracion/Index.html">Configuración</a>
 
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
-        <button class="btn btn-primary btn-full" id="btnCrear" type="button">
-          Guardar
-        </button>
-      </div>
+</div>
 
-    </div>
-  </div>
+</nav>
 
-  <script src="Mascotas.js"></script>
+
+
+<section class="section">
+
+<div class="wrap">
+
+<div>
+
+<h2>Mis Mascotas</h2>
+
+<p class="sub">
+Cuida, alimenta y monitorea a tus mascotas
+</p>
+
+</div>
+
+<button class="btn btn-primary" id="btnAbrirModal">
++ Agregar Mascota
+</button>
+
+</div>
+
+</section>
+
+
+
+<main class="main">
+
+<div class="panel">
+
+
+<!-- ESTADISTICAS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<h4 id="mascotasCount">0</h4>
+<p>Mascotas</p>
+
+</div>
+
+<div class="stat">
+
+<h4 id="promedioSalud">100%</h4>
+<p>Salud promedio</p>
+
+</div>
+
+<div class="stat">
+
+<h4 id="promedioFelicidad">100%</h4>
+<p>Felicidad promedio</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ESTADO VACIO -->
+
+<section class="empty" id="emptyState">
+
+<div class="plus">🐾</div>
+
+<h3>No tienes mascotas aún</h3>
+
+<p>
+Agrega tu primera mascota para comenzar
+</p>
+
+<button class="btn btn-primary" id="btnPrimerMascota">
+Crear mi primera mascota
+</button>
+
+</section>
+
+
+
+<!-- LISTA MASCOTAS -->
+
+<section class="list" id="listSection">
+
+<div class="cards" id="cards">
+
+<!-- EJEMPLO TARJETA -->
+
+<article class="card">
+
+<div class="card-top">
+
+<div class="pet-header">
+
+<div class="pet-avatar">
+🐶
+</div>
+
+<div>
+
+<h4>Max</h4>
+<p class="pet-type">Perro</p>
+
+</div>
+
+</div>
+
+<div class="pet-status">
+Activo
+</div>
+
+</div>
+
+
+<div class="pet-info">
+
+<p><b>Comida favorita:</b> Croquetas</p>
+
+<p><b>Notas:</b> Le gusta correr</p>
+
+<p><b>Última comida:</b> 3:20 pm</p>
+
+</div>
+
+
+<div class="pet-days">
+
+<span>L</span>
+<span>M</span>
+<span>M</span>
+<span>J</span>
+<span>V</span>
+
+</div>
+
+
+
+<div class="status">
+
+<div class="status-row">
+
+<span class="status-label">Salud</span>
+
+<span>100%</span>
+
+</div>
+
+<div class="bar">
+
+<div class="bar-fill bar-salud" style="width:100%"></div>
+
+</div>
+
+
+<div class="status-row">
+
+<span class="status-label">Felicidad</span>
+
+<span>90%</span>
+
+</div>
+
+<div class="bar">
+
+<div class="bar-fill bar-felicidad" style="width:90%"></div>
+
+</div>
+
+
+<div class="status-row">
+
+<span class="status-label">Energía</span>
+
+<span>80%</span>
+
+</div>
+
+<div class="bar">
+
+<div class="bar-fill bar-energia" style="width:80%"></div>
+
+</div>
+
+</div>
+
+
+
+<div class="actions">
+
+<button class="btn-mini btn-feed">
+🍖 Alimentar
+</button>
+
+<button class="btn-mini">
+🎾 Jugar
+</button>
+
+<button class="btn-mini">
+✏️ Editar
+</button>
+
+<button class="btn-mini btn-danger">
+🗑 Eliminar
+</button>
+
+</div>
+
+</article>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+
+
+
+<!-- MODAL -->
+
+<div class="backdrop" id="backdrop">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h3 id="tituloModal">Agregar Mascota</h3>
+
+<button class="icon-btn" id="btnCerrarModal">
+✕
+</button>
+
+</div>
+
+
+
+<div class="field">
+
+<label>Nombre</label>
+
+<input
+id="nombreMascota"
+type="text"
+placeholder="Ej: Max">
+
+<div class="error" id="errorNombre">
+El nombre es obligatorio
+</div>
+
+</div>
+
+
+
+<div class="field">
+
+<label>Tipo de mascota</label>
+
+<input
+id="tipoMascota"
+type="text"
+placeholder="Ej: Perro">
+
+</div>
+
+
+
+<div class="field">
+
+<label>Comida favorita</label>
+
+<input
+id="comidaMascota"
+type="text"
+placeholder="Ej: Croquetas">
+
+</div>
+
+
+
+<div class="field">
+
+<label>Notas</label>
+
+<textarea
+id="notasMascota"
+placeholder="Ej: Le gusta dormir mucho">
+</textarea>
+
+</div>
+
+
+
+<div class="field">
+
+<label>Días de cuidado</label>
+
+<div class="dias">
+
+<label>
+<input type="checkbox" value="Lunes">
+Lunes
+</label>
+
+<label>
+<input type="checkbox" value="Martes">
+Martes
+</label>
+
+<label>
+<input type="checkbox" value="Miércoles">
+Miércoles
+</label>
+
+<label>
+<input type="checkbox" value="Jueves">
+Jueves
+</label>
+
+<label>
+<input type="checkbox" value="Viernes">
+Viernes
+</label>
+
+</div>
+
+</div>
+
+
+
+<div class="modal-actions">
+
+<button class="btn btn-ghost" id="btnCancelar">
+Cancelar
+</button>
+
+<button
+class="btn btn-primary btn-full"
+id="btnCrear"
+type="button">
+
+Guardar Mascota
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="Mascotas.js"></script>
 
 </body>
 </html>
