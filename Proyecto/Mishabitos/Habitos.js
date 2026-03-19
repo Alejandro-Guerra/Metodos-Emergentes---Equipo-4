@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCrear = document.getElementById("btnCrear");
   const tituloModal = document.getElementById("tituloModal");
 
-  // ✅ (A) NUEVO: botón cerrar sesión
+  
   const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 
   let selectedIcon = "🎯";
