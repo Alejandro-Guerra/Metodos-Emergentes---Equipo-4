@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mi Diario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="diario.css">
+</head>
+
+<body>
+
+<header class="topbar">
+<div class="avatar">A</div>
+
+<div class="greeting">
+<h1>Hola</h1>
+<p>Registra tu día y pensamientos</p>
+</div>
+</header>
+
+
+<nav class="nav">
+<div class="wrap">
+
+<a href="../Mishabitos/Index.html">Mis Hábitos</a>
+
+<a href="../Mismascotas/Index.html">Mis Mascotas</a>
+
+<a class="active" href="../diario/diario.html">Diario</a>
+
+<a href="../Configuracion/Index.html">Configuración</a>
+
+</div>
+</nav>
+
+
+<section class="section">
+<div class="wrap">
+
+<div>
+<h2>Mi Diario</h2>
+<p class="sub">Registra emociones, pensamientos y logros</p>
+</div>
+
+<button class="btn btn-primary" id="btnAbrirModal">
++ Nueva Entrada
+</button>
+
+</div>
+</section>
+
+
+<main class="main">
+
+<div class="panel">
+
+<section class="empty" id="emptyState">
+
+<div class="plus">📔</div>
+
+<h3>No hay entradas aún</h3>
+
+<p>Empieza escribiendo tu primer día</p>
+
+<button class="btn btn-primary" id="btnPrimeraEntrada">
+Crear entrada
+</button>
+
+</section>
+
+
+<section class="list" id="listSection">
+
+<p class="count" id="entradasCount">
+0 entradas registradas
+</p>
+
+<div class="cards" id="cards"></div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div class="backdrop" id="backdrop">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h3>Nueva entrada</h3>
+
+<button class="icon-btn" id="btnCerrarModal">✕</button>
+
+</div>
+
+
+<div class="field">
+
+<label>¿Cómo te sientes hoy?</label>
+
+<select id="mood">
+
+<option value="😊">Feliz</option>
+<option value="😐">Normal</option>
+<option value="😔">Triste</option>
+<option value="😡">Molesto</option>
+<option value="😴">Cansado</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>¿Qué pasó hoy?</label>
+
+<textarea id="textoDia"></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>Algo importante hoy</label>
+
+<textarea id="listaDia"></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>Algo positivo del día</label>
+
+<textarea id="positivoDia"></textarea>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button class="btn btn-ghost" id="btnCancelar">
+Cancelar
+</button>
+
+<button class="btn btn-primary btn-full" id="btnGuardar">
+Guardar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="diario.js"></script>
+
+</body>
+</html>
