@@ -64,15 +64,15 @@ El proyecto se considera **fallido** debido a retrasos constantes, falta de func
 ### Roles del Equipo
 
 - **Product Owner (PO):**  
-- Grecia
+- Alejandra Grecia Barrera Gonzalez
 
 - **Desarrollador Backend:**  
--Andy
--Chelsea Valdovinos Jijon
+- Rigel Sebastian Manrique Sanchez
 
 - **Desarrollador Frontend:**
--Rigel 
--Carla  
+- Chelsea valdovinos Jijon 
+- Andy Nirvan Hernandez Guzman 
+- Carla Valeria Vega Guzman
 
 - **QA / Tester:**  
 -Andrick Alejandro Guerra Guerra
@@ -233,5 +233,31 @@ Hábitos: Define cada hábito como una “plantilla” o configuración principa
 -	description (String, opcional): Detalle del hábito.
 -	targetType (String): Indica a quién aplica el hábito.
 -	Valores: "USER" o "PET".
+
+
+  # Desarrollo del proyecto
+
+  ## Estructura del proyecto 
+  ```bash
+Metodos-Emergentes---Equipo-4/
+│
+├── Proyecto/
+│   ├── Configuracion/
+│   ├── Inciodesesion/
+│   ├── Mishabitos/
+│   ├── Mismascotas/
+│   ├── diario/
+│   ├── index.html
+│   ├── scripts.js
+│   └── styles.css
+│
+├── backend/
+│   ├── package.json
+│   ├── server.js
+│   └── node_modules/
+│
+├── Examen_metodos_emergentes.pdf
+└── README.md
+  
 
 
