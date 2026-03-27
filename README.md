@@ -238,7 +238,7 @@ Hábitos: Define cada hábito como una “plantilla” o configuración principa
   # Desarrollo del proyecto
 
   ## Estructura del proyecto 
-  ```bash
+  
 Metodos-Emergentes---Equipo-4/
 │
 ├── Proyecto/
@@ -258,6 +258,32 @@ Metodos-Emergentes---Equipo-4/
 │
 ├── Examen_metodos_emergentes.pdf
 └── README.md
-  
 
+## Tecnologias Usadas
+Front-End:
+- HTML
+- CSS
+- JS
 
+Back-End:
+- Node. js
+
+Base de Datos:
+- Mongodb
+
+## Proceso de Instalacion
+Tienes que tener descargado e instalado
+- Node. js
+- Mongodb
+
+Despues clonas el repositorio desde tu terminal con el siguiente comando:
+git clone https://github.com/Alejandro-Guerra/Metodos-Emergentes---Equipo-4.git
+
+Abres la carpeta llamada: Metodos-Emergentes---Equipo-4
+Abres la terminal en el Back y usas los siguientes comandos:
+- npm install
+- mongod
+- npm start
+Despues de esto la base de datos ya esta funcionando, ahora podemos seguir con el front
+con el front podemos hacerlo de dos maneras, la primera seria abrir el index en algun navegador y listo
+la segunda es abrir el index en un editor de texto como lo es visual estudio y compilamos el proyecto.
