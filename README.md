@@ -269,7 +269,6 @@ Con el front podemos hacerlo de dos maneras, la primera seria abrir el index en 
 La segunda es abrir el index en un editor de texto como lo es visual estudio y compilamos el proyecto.
 
   ## Estructura del proyecto 
-```md
 ```bash
 Metodos-Emergentes---Equipo-4/
 │
