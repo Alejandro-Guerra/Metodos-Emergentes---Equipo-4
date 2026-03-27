@@ -235,29 +235,7 @@ Hábitos: Define cada hábito como una “plantilla” o configuración principa
 -	Valores: "USER" o "PET".
 
 
-  # Desarrollo del proyecto
-
-  ## Estructura del proyecto 
-  
-Metodos-Emergentes---Equipo-4/
-│
-├── Proyecto/
-│   ├── Configuracion/
-│   ├── Inciodesesion/
-│   ├── Mishabitos/
-│   ├── Mismascotas/
-│   ├── diario/
-│   ├── index.html
-│   ├── scripts.js
-│   └── styles.css
-│
-├── backend/
-│   ├── package.json
-│   ├── server.js
-│   └── node_modules/
-│
-├── Examen_metodos_emergentes.pdf
-└── README.md
+# Desarrollo del proyecto
 
 ## Tecnologias Usadas
 Front-End:
@@ -284,6 +262,31 @@ Abres la terminal en el Back y usas los siguientes comandos:
 - npm install
 - mongod
 - npm start
-Despues de esto la base de datos ya esta funcionando, ahora podemos seguir con el front
-con el front podemos hacerlo de dos maneras, la primera seria abrir el index en algun navegador y listo
-la segunda es abrir el index en un editor de texto como lo es visual estudio y compilamos el proyecto.
+Despues de esto la base de datos ya esta funcionando
+
+Ahora podemos seguir con el front:
+Con el front podemos hacerlo de dos maneras, la primera seria abrir el index en algun navegador y listo
+La segunda es abrir el index en un editor de texto como lo es visual estudio y compilamos el proyecto.
+
+  ## Estructura del proyecto 
+```md
+```bash
+Metodos-Emergentes---Equipo-4/
+│
+├── Proyecto/
+│   ├── Configuracion/
+│   ├── Inciodesesion/
+│   ├── Mishabitos/
+│   ├── Mismascotas/
+│   ├── diario/
+│   ├── index.html
+│   ├── scripts.js
+│   └── styles.css
+│
+├── backend/
+│   ├── package.json
+│   ├── server.js
+│   └── node_modules/
+│
+├── Examen_metodos_emergentes.pdf
+└── README.md
