@@ -211,6 +211,11 @@ El sistema es multiusuario y permite registrar hábitos, escribir un diario pers
 
 ## Desarrollo de las tablas en mongoDB
 
+### Estado actual
+Actualmente, **solo la colección de Usuarios se encuentra completamente implementada y funcional** dentro de la base de datos.
+
+Las colecciones de **Mascotas y Hábitos se encuentran en proceso de desarrollo e integración**, por lo que aún no están completamente disponibles en el sistema.
+
 Usuarios: Almacena la información de cuentas y perfil de cada usuario del sistema.
 
 -	id (ObjectId): Identificador único del usuario.
