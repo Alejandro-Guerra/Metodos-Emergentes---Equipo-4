@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Configuración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Configuracion.css" />
+</head>
+
+<body>
+
+  <!-- ══════════ TOPBAR ══════════ -->
+  <header class="topbar">
+    <div class="avatar" id="avatarLetra">A</div>
+    <div class="greeting">
+      <h1 id="saludoNombre">Hola</h1>
+      <p>Administra tus hábitos diarios</p>
+    </div>
+  </header>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../Mishabitos/Index.html">Mis Hábitos</a>
+      <a href="../Mismascotas/index.html">Mis Mascotas</a>
+      <a href="../diario/Index.html">Diario</a>
+      <a class="active" href="../Configuracion/Index.html">Configuración</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO SECCIÓN ══════════ -->
+  <section class="section">
+    <div class="wrap">
+      <div>
+        <h2>Configuración</h2>
+        <p class="sub">Personaliza tu cuenta y preferencias</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTENIDO PRINCIPAL ══════════ -->
+  <main class="main">
+
+    <!-- ── TARJETA: Cambiar Nombre ── -->
+    <div class="config-card">
+      <div class="config-card-header">
+        <span class="config-icon">👤</span>
+        <div>
+          <h3>Nombre de usuario</h3>
+          <p>Este nombre aparece en la parte superior de la aplicación</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="inputNombre">Nombre completo</label>
+        <div class="input-wrap">
+          <input
+            id="inputNombre"
+            type="text"
+            placeholder="Tu nombre completo"
+            autocomplete="name"
+          />
+        </div>
+        <div class="error" id="errorNombre">El nombre no puede estar vacío.</div>
+      </div>
+
+      <div class="field-actions">
+        <button class="btn btn-primary" id="btnGuardarNombre" type="button">
+          Guardar nombre
+        </button>
+        <div class="success-msg" id="successNombre">✅ Nombre actualizado correctamente</div>
+      </div>
+    </div>
+
+    <!-- ── TARJETA: Modo Oscuro ── -->
+    <div class="config-card">
+      <div class="config-card-header">
+        <span class="config-icon">🌙</span>
+        <div>
+          <h3>Apariencia</h3>
+          <p>Cambia el tema visual de la aplicación</p>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <span class="toggle-label">Modo oscuro</span>
+          <span class="toggle-desc">Reduce el brillo para usar en ambientes con poca luz</span>
+        </div>
+        <label class="switch" aria-label="Activar modo oscuro">
+          <input type="checkbox" id="darkToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ── TARJETA: Cerrar Sesión ── -->
+    <div class="config-card config-card-danger">
+      <div class="config-card-header">
+        <span class="config-icon">🚪</span>
+        <div>
+          <h3>Sesión</h3>
+          <p>Cierra tu sesión en este dispositivo</p>
+        </div>
+      </div>
+
+      <div class="field-actions">
+        <button class="btn btn-logout-cfg" id="btnCerrarSesion" type="button">
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══════════ TOAST ══════════ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="Configuracion.js"></script>
+</body>
+</html>
