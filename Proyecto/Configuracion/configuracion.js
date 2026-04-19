@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* ── MODO OSCURO — aplicar antes de que el usuario vea nada ── */
+  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+  document.body.classList.toggle("dark", modoOscuro);
+
   /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Iniciodesesion/Index.html";
+    window.location.href = "../Inciodesesion/Index.html"; // ← ruta exacta de tu carpeta
     return;
   }
 
@@ -18,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCerrarSesion  = document.getElementById("btnCerrarSesion");
   const toast            = document.getElementById("toast");
 
-  /* ── INICIALIZAR UI con datos de sesión ── */
+  /* ── INICIALIZAR UI ── */
   function inicializarNombre() {
     const nombre = sesion.nombre || "";
     saludoNombre.textContent = `Hola, ${nombre}`;
@@ -51,25 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
     errorNombre.classList.remove("show");
     successNombre.classList.remove("show");
 
-    // Actualizar sesión en localStorage
     sesion.nombre = nuevoNombre;
     localStorage.setItem("sesionActiva", JSON.stringify(sesion));
 
-    // Actualizar UI de esta página
     saludoNombre.textContent = `Hola, ${nuevoNombre}`;
     avatarLetra.textContent  = nuevoNombre.charAt(0).toUpperCase() || "A";
 
-    // Confirmación visual
     successNombre.classList.add("show");
     setTimeout(() => successNombre.classList.remove("show"), 3000);
     showToast("✅ Nombre actualizado correctamente");
   });
 
-  // Limpiar error al escribir
   inputNombre.addEventListener("input", () => errorNombre.classList.remove("show"));
 
   /* ══════════════════════════════════
-     MODO OSCURO — persiste en localStorage
+     MODO OSCURO
   ══════════════════════════════════ */
   function aplicarModoOscuro(activar) {
     document.body.classList.toggle("dark", activar);
@@ -77,24 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("modoOscuro", activar ? "true" : "false");
   }
 
-  // Aplicar preferencia guardada al cargar la página
-  const modoGuardado = localStorage.getItem("modoOscuro") === "true";
-  aplicarModoOscuro(modoGuardado);
+  darkToggle.checked = modoOscuro;
 
-  // Escuchar cambios en el toggle
   darkToggle.addEventListener("change", () => {
     aplicarModoOscuro(darkToggle.checked);
     showToast(darkToggle.checked ? "🌙 Modo oscuro activado" : "☀️ Modo claro activado");
   });
 
   /* ══════════════════════════════════
-     CERRAR SESIÓN
+     CERRAR SESIÓN — ruta corregida
   ══════════════════════════════════ */
   btnCerrarSesion.addEventListener("click", () => {
     const ok = confirm("¿Deseas cerrar sesión?");
     if (!ok) return;
     localStorage.removeItem("sesionActiva");
-    window.location.href = "../Iniciodesesion/Index.html";
+    window.location.href = "../Inciodesesion/Index.html"; // ← ruta exacta de tu carpeta
   });
 
 });
