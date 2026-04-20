@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded",()=>{
+const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
+  if (!sesion) {
+    window.location.href = "../Inciodesesion/Index.html";
+    return;
+  }
+
+  const tituloHola = document.querySelector("h1"); 
+  if (tituloHola) {
+    tituloHola.textContent = `Hola, ${sesion.nombre}`;
+  }
 
 const btnAbrir = document.getElementById("btnAbrirModal")
 const btnPrimera = document.getElementById("btnPrimeraEntrada")

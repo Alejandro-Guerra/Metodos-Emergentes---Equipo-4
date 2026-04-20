@@ -101,4 +101,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.put("/usuario/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre_completo } = req.body;
+
+const actualizado = await Usuario.findByIdAndUpdate(
+  id,
+  { nombre_completo },
+  { returnDocument: 'after' }
+);
+
+    res.json(actualizado);
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar" });
+  }
+});
+
 app.listen(3000, () => console.log("🚀 Servidor en http://localhost:3000"));

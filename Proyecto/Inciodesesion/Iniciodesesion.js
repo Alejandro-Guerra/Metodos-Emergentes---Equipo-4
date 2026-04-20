@@ -52,13 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
     els.forEach(el => el.classList.remove("show"));
   }
 
-  function saveSession(user) {
-    localStorage.setItem("sesionActiva", JSON.stringify({
-      nombre: user.nombre,
-      email:  user.email
-    }));
-  }
-
+function saveSession(user) {
+  localStorage.setItem("sesionActiva", JSON.stringify({
+    id: user.id,
+    nombre: user.nombre,
+    email: user.email
+  }));
+}
   /* ── TABS ── */
   function switchTab(tab) {
     const isLogin = tab === "login";
@@ -143,8 +143,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      saveSession({ nombre: data.usuario.nombre, email: data.usuario.email });
-
+saveSession({
+  id: data.usuario.id,
+  nombre: data.usuario.nombre,
+  email: data.usuario.email
+});
       showToast(`👋 ¡Hola de nuevo, ${data.usuario.nombre.split(" ")[0]}!`);
       setTimeout(() => { window.location.href = "../Mishabitos/Index.html"; }, 1800);
 
@@ -189,8 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      saveSession({ nombre, email });
-
+saveSession({
+  id: data.usuario.id,
+  nombre,
+  email
+});
       registerForm.reset();
       strengthFill.style.width  = "0%";
       strengthLabel.textContent = "Ingresa una contraseña";

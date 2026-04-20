@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Iniciodesesion/Index.html";
+    window.location.href = "../Inciodesesion/Index.html";
     return;
   }
 
@@ -200,16 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabitos();
   }
 
-  function cerrarSesion() {
-    const ok = confirm("Desea cerrar su sesión?");
-    if (!ok) return;
-
-    localStorage.removeItem("sesionActiva");
-    window.location.href = "../Inciodesesion/Index.html";
-  }
-
-  btnCerrarSesion?.addEventListener("click", cerrarSesion);
-
+  
   btnAbrirModal.addEventListener("click", abrirModalCrear);
   btnPrimerHabito.addEventListener("click", abrirModalCrear);
 
