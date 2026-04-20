@@ -7,12 +7,62 @@ const mascotaSchema = new mongoose.Schema(
       ref: "usuarios",
       required: true
     },
-    nombre: { type: String, required: true },
-    tipo: { type: String },
-    salud: { type: Number, default: 100 },
-    felicidad: { type: Number, default: 100 }
+
+    nombre: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    tipo: {
+      type: String,
+      trim: true
+    },
+
+    comida: {
+      type: String,
+      trim: true
+    },
+
+    notas: {
+      type: String,
+      trim: true
+    },
+
+    dias: [
+      {
+        type: String
+      }
+    ],
+
+    salud: {
+      type: Number,
+      default: 100,
+      min: 0,
+      max: 100
+    },
+
+    felicidad: {
+      type: Number,
+      default: 100,
+      min: 0,
+      max: 100
+    },
+
+    energia: {
+      type: Number,
+      default: 100,
+      min: 0,
+      max: 100
+    },
+
+    ultimaComida: {
+      type: Date
+    }
   },
-  { timestamps: true }
+  {
+    timestamps: true
+  }
 );
 
 module.exports = mongoose.model("mascotas", mascotaSchema);
