@@ -11,6 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+
+  const avatarPerfil = document.getElementById("avatarPerfil");
+
+avatarPerfil?.addEventListener("click", () => {
+  window.location.href = "../TarjetaUsuario/CardUsuario.html";
+});
+
   /* ── ELEMENTOS ── */
   const saludoNombre     = document.getElementById("saludoNombre");
   const avatarLetra      = document.getElementById("avatarLetra");
