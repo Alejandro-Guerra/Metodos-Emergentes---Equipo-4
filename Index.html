@@ -1,138 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mis Hábitos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Habitos.css">
+  <meta charset="UTF-8" />
+  <title>Configuración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Configuracion.css" />
 </head>
 
 <body>
 
+  <!-- ══════════ TOPBAR ══════════ -->
   <header class="topbar">
-    <div class="avatar">A</div>
+    <div class="avatar" id="avatarLetra">A</div>
     <div class="greeting">
-      <h1>Hola</h1>
+      <h1 id="saludoNombre">Hola</h1>
       <p>Administra tus hábitos diarios</p>
     </div>
-  
   </header>
 
+  <!-- ══════════ NAV ══════════ -->
   <nav class="nav">
     <div class="wrap">
-      <a class="active" href="../Mishabitos/Index.html">Mis Hábitos</a>
+      <a href="../Mishabitos/Index.html">Mis Hábitos</a>
       <a href="../Mismascotas/Index.html">Mis Mascotas</a>
       <a href="../diario/diario.html">Diario</a>
-      <a href="../Configuracion/Index.html">Configuración</a>
+      <a class="active" href="../Configuracion/Index.html">Configuración</a>
     </div>
   </nav>
 
+  <!-- ══════════ HERO ══════════ -->
   <section class="section">
     <div class="wrap">
       <div>
-        <h2>Mis Hábitos</h2>
-        <p class="sub">Organiza y mejora tus rutinas</p>
+        <h2>Configuración</h2>
+        <p class="sub">Personaliza tu cuenta y preferencias</p>
       </div>
-      <button class="btn btn-primary" id="btnAbrirModal">
-        + Agregar Hábito
-      </button>
     </div>
   </section>
 
+  <!-- ══════════ CONTENIDO ══════════ -->
   <main class="main">
-    <div class="panel">
 
-      <section class="empty" id="emptyState">
-        <div class="plus">+</div>
-        <h3>No tienes hábitos aún</h3>
-        <p>Comienza tu viaje hacia una vida más saludable agregando tu primer hábito</p>
-
-        <button class="btn btn-primary" id="btnPrimerHabito">
-          Crear mi primer hábito
-        </button>
-      </section>
-
-      <section class="list" id="listSection">
-        <p class="count" id="habitosCount">0 hábitos activos</p>
-        <div class="cards" id="cards"></div>
-      </section>
-
-    </div>
-  </main>
-
-  <div class="backdrop" id="backdrop">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
-      <div class="modal-head">
-        <h3 id="tituloModal">Agregar Nuevo Hábito</h3>
-        <button class="icon-btn" id="btnCerrarModal" aria-label="Cerrar">✕</button>
-      </div>
-
-      <div class="field">
-        <label for="nombreHabito">Nombre del hábito</label>
-        <input id="nombreHabito" type="text" placeholder="Ej: Hacer ejercicio" />
-        <div class="error" id="errorNombre">El nombre del hábito es obligatorio.</div>
-      </div>
-
-      <div class="field">
-        <label for="descHabito">Descripción (opcional)</label>
-        <textarea id="descHabito" placeholder="Ej: 30 minutos diarios"></textarea>
-      </div>
-
-      <div class="field">
-        <label>Selecciona un ícono</label>
-        <div class="icons" id="iconGrid">
-          <div class="icon-tile" data-icon="🏃">🏃</div>
-          <div class="icon-tile" data-icon="🥗">🥗</div>
-          <div class="icon-tile" data-icon="📚">📚</div>
-          <div class="icon-tile" data-icon="🧘">🧘</div>
-          <div class="icon-tile" data-icon="💧">💧</div>
-          <div class="icon-tile" data-icon="🛏️">🛏️</div>
-          <div class="icon-tile" data-icon="🧠">🧠</div>
-          <div class="icon-tile" data-icon="🎯">🎯</div>
+    <!-- Tarjeta: Nombre -->
+    <div class="config-card">
+      <div class="config-card-header">
+        <span class="config-icon">👤</span>
+        <div>
+          <h3>Nombre de usuario</h3>
+          <p>Este nombre aparece en la parte superior de la aplicación</p>
         </div>
       </div>
+
       <div class="field">
+        <label for="inputNombre">Nombre completo</label>
+        <div class="input-wrap">
+          <input id="inputNombre" type="text" placeholder="Tu nombre completo" autocomplete="name" />
+        </div>
+        <div class="error" id="errorNombre">El nombre no puede estar vacío.</div>
+      </div>
 
-<label>Días de habitos</label>
-
-<div class="dias">
-
-<label>
-<input type="checkbox" value="Lunes">
-Lunes
-</label>
-
-<label>
-<input type="checkbox" value="Martes">
-Martes
-</label>
-
-<label>
-<input type="checkbox" value="Miércoles">
-Miércoles
-</label>
-
-<label>
-<input type="checkbox" value="Jueves">
-Jueves
-</label>
-
-<label>
-<input type="checkbox" value="Viernes">
-Viernes
-</label>
-
-</div>
-
-</div>
-
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
-        <button class="btn btn-primary btn-full" id="btnCrear" type="button">Crear Hábito</button>
+      <div class="field-actions">
+        <button class="btn btn-primary" id="btnGuardarNombre" type="button">Guardar nombre</button>
+        <div class="success-msg" id="successNombre">✅ Nombre actualizado correctamente</div>
       </div>
     </div>
-  </div>
 
-  <script src="Habitos.js"></script>
+    <!-- Tarjeta: Modo oscuro -->
+    <div class="config-card">
+      <div class="config-card-header">
+        <span class="config-icon">🌙</span>
+        <div>
+          <h3>Apariencia</h3>
+          <p>Cambia el tema visual de la aplicación</p>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <span class="toggle-label">Modo oscuro</span>
+          <span class="toggle-desc">Reduce el brillo para usar en ambientes con poca luz</span>
+        </div>
+        <label class="switch" aria-label="Activar modo oscuro">
+          <input type="checkbox" id="darkToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Tarjeta: Cerrar sesión -->
+    <div class="config-card config-card-danger">
+      <div class="config-card-header">
+        <span class="config-icon">🚪</span>
+        <div>
+          <h3>Sesión</h3>
+          <p>Cierra tu sesión en este dispositivo</p>
+        </div>
+      </div>
+
+      <div class="field-actions">
+        <button class="btn-logout-cfg" id="btnCerrarSesion" type="button">Cerrar sesión</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══════════ TOAST ══════════ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="Configuracion.js"></script>
 </body>
 </html>
