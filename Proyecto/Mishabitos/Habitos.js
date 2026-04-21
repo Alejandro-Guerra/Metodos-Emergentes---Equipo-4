@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Iniciodesesion/Index.html";
+    window.location.href = "../Inciodesesion/Index.html";
     return;
   }
 

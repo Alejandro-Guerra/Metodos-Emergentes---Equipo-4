@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ── MODO OSCURO — aplicar antes de que el usuario vea nada ── */
-  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
-  document.body.classList.toggle("dark", modoOscuro);
-
   /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Inciodesesion/Index.html"; // ← ruta exacta de tu carpeta
+    window.location.href = "../Inciodesesion/Index.html";
     return;
   }
 
@@ -29,7 +25,7 @@ avatarPerfil?.addEventListener("click", () => {
   const btnCerrarSesion  = document.getElementById("btnCerrarSesion");
   const toast            = document.getElementById("toast");
 
-  /* ── INICIALIZAR UI ── */
+  /* ── INICIALIZAR UI con datos de sesión ── */
   function inicializarNombre() {
     const nombre = sesion.nombre || "";
     saludoNombre.textContent = `Hola, ${nombre}`;
@@ -47,36 +43,59 @@ avatarPerfil?.addEventListener("click", () => {
     toast._timer = setTimeout(() => { toast.className = "toast"; }, duration);
   }
 
-  /* ══════════════════════════════════
-     GUARDAR NOMBRE — solo localStorage
-  ══════════════════════════════════ */
-  btnGuardarNombre.addEventListener("click", () => {
-    const nuevoNombre = inputNombre.value.trim();
+btnGuardarNombre.addEventListener("click", async () => {
+  const nuevoNombre = inputNombre.value.trim();
 
-    if (!nuevoNombre) {
-      errorNombre.classList.add("show");
-      inputNombre.focus();
-      return;
+  if (!nuevoNombre) {
+    errorNombre.classList.add("show");
+    inputNombre.focus();
+    return;
+  }
+
+  errorNombre.classList.remove("show");
+  successNombre.classList.remove("show");
+
+  try {
+    const usuario = JSON.parse(localStorage.getItem("sesionActiva"));
+
+    const res = await fetch(`http://localhost:3000/usuario/${usuario.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nombre_completo: nuevoNombre })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.mensaje);
     }
 
-    errorNombre.classList.remove("show");
-    successNombre.classList.remove("show");
-
-    sesion.nombre = nuevoNombre;
-    localStorage.setItem("sesionActiva", JSON.stringify(sesion));
-
+    // actualizar UI
     saludoNombre.textContent = `Hola, ${nuevoNombre}`;
     avatarLetra.textContent  = nuevoNombre.charAt(0).toUpperCase() || "A";
 
+    // opcional: mantener sincronizado localStorage
+    sesion.nombre = nuevoNombre;
+    localStorage.setItem("sesionActiva", JSON.stringify(sesion));
+
     successNombre.classList.add("show");
     setTimeout(() => successNombre.classList.remove("show"), 3000);
-    showToast("✅ Nombre actualizado correctamente");
-  });
 
+    showToast("✅ Nombre actualizado correctamente");
+
+  } catch (error) {
+    console.error(error);
+    showToast("❌ Error al actualizar", "error");
+  }
+});
+
+  // Limpiar error al escribir
   inputNombre.addEventListener("input", () => errorNombre.classList.remove("show"));
 
   /* ══════════════════════════════════
-     MODO OSCURO
+     MODO OSCURO — persiste en localStorage
   ══════════════════════════════════ */
   function aplicarModoOscuro(activar) {
     document.body.classList.toggle("dark", activar);
@@ -84,21 +103,30 @@ avatarPerfil?.addEventListener("click", () => {
     localStorage.setItem("modoOscuro", activar ? "true" : "false");
   }
 
-  darkToggle.checked = modoOscuro;
+  // Aplicar preferencia guardada al cargar la página
+  const modoGuardado = localStorage.getItem("modoOscuro") === "true";
+  aplicarModoOscuro(modoGuardado);
 
+  // Escuchar cambios en el toggle
   darkToggle.addEventListener("change", () => {
     aplicarModoOscuro(darkToggle.checked);
     showToast(darkToggle.checked ? "🌙 Modo oscuro activado" : "☀️ Modo claro activado");
   });
 
   /* ══════════════════════════════════
-     CERRAR SESIÓN — ruta corregida
+     CERRAR SESIÓN
   ══════════════════════════════════ */
+});
+document.addEventListener("DOMContentLoaded", () => {
+
+  const btnCerrarSesion = document.getElementById("btnCerrarSesion");
+
   btnCerrarSesion.addEventListener("click", () => {
-    const ok = confirm("¿Deseas cerrar sesión?");
+    const ok = confirm("¿Desea cerrar su sesión?");
     if (!ok) return;
+
     localStorage.removeItem("sesionActiva");
-    window.location.href = "../Inciodesesion/Index.html"; // ← ruta exacta de tu carpeta
+    window.location.href = "../Inciodesesion/Index.html";
   });
 
 });
