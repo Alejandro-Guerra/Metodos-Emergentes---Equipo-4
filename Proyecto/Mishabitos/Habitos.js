@@ -1,20 +1,23 @@
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ── MODO OSCURO — aplicar antes de renderizar ── */
+  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+  document.body.classList.toggle("dark", modoOscuro);
+
+  /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
     window.location.href = "../Inciodesesion/Index.html";
     return;
   }
 
-  const tituloHola = document.querySelector("h1"); 
-  if (tituloHola) {
-    tituloHola.textContent = `Hola, ${sesion.nombre}`;
-  }
-  const btnAbrirModal = document.getElementById("btnAbrirModal");
-  const btnPrimerHabito = document.getElementById("btnPrimerHabito");
+  const tituloHola = document.querySelector("h1");
+  if (tituloHola) tituloHola.textContent = `Hola, ${sesion.nombre}`;
 
-  const backdrop = document.getElementById("backdrop");
-  const btnCerrarModal = document.getElementById("btnCerrarModal");
-  const btnCancelar = document.getElementById("btnCancelar");
+  /* ── AVATAR inicial ── */
+  const avatarEl = document.querySelector(".avatar");
+  if (avatarEl) avatarEl.textContent = sesion.nombre?.charAt(0).toUpperCase() || "A";
 
   const nombreHabito = document.getElementById("nombreHabito");
   const descHabito = document.getElementById("descHabito");
@@ -34,156 +37,120 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 
   let selectedIcon = "🎯";
-  let editingId = null;
+  let editingId    = null;
 
+  /* ── STORAGE ── */
   function obtenerHabitos() {
-    try {
-      const raw = localStorage.getItem("habitos");
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
+    try { return JSON.parse(localStorage.getItem("habitos")) || []; } catch { return []; }
   }
-
   function guardarHabitos(lista) {
     localStorage.setItem("habitos", JSON.stringify(lista));
   }
 
+  /* ── MODAL ── */
   function abrirModal() {
     backdrop.classList.add("show");
     errorNombre.classList.remove("show");
     setTimeout(() => nombreHabito.focus(), 0);
   }
 
-  function cerrarModal() {
-    backdrop.classList.remove("show");
-  }
+  function cerrarModal() { backdrop.classList.remove("show"); }
 
   function limpiarForm() {
     nombreHabito.value = "";
-    descHabito.value = "";
-    selectedIcon = "🎯";
+    descHabito.value   = "";
+    selectedIcon       = "🎯";
     document.querySelectorAll(".icon-tile").forEach(el => el.classList.remove("selected"));
     document.querySelector('.icon-tile[data-icon="🎯"]')?.classList.add("selected");
   }
 
   function abrirModalCrear() {
     editingId = null;
-    tituloModal.textContent = "Agregar Nuevo Hábito";
-    btnCrear.textContent = "Crear Hábito";
+    tituloModal.textContent  = "Agregar Nuevo Hábito";
+    btnCrear.textContent     = "Crear Hábito";
     limpiarForm();
     abrirModal();
   }
 
   function abrirModalEditar(habito) {
-    editingId = habito.id;
+    editingId               = habito.id;
     tituloModal.textContent = "Editar Hábito";
-    btnCrear.textContent = "Guardar Cambios";
-
-    nombreHabito.value = habito.nombre || "";
-    descHabito.value = habito.descripcion || "";
-    selectedIcon = habito.icono || "🎯";
-
+    btnCrear.textContent    = "Guardar Cambios";
+    nombreHabito.value      = habito.nombre     || "";
+    descHabito.value        = habito.descripcion || "";
+    selectedIcon            = habito.icono       || "🎯";
     document.querySelectorAll(".icon-tile").forEach(el => {
       el.classList.toggle("selected", el.dataset.icon === selectedIcon);
     });
-
     abrirModal();
   }
 
+  /* ── RENDER ── */
   function escapeHtml(str) {
     return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
   }
 
   function renderDias() {
-    const labels = ["L", "M", "X", "J", "V", "S", "D"];
-    return labels.map((l, i) => `
+    return ["L","M","X","J","V","S","D"].map((l, i) => `
       <div class="day">
         <div class="dot ${i % 2 === 0 ? "on" : ""}"></div>
         <div>${l}</div>
-      </div>
-    `).join("");
+      </div>`).join("");
   }
 
   function renderHabitos() {
     const habitos = obtenerHabitos();
-    const hay = habitos.length > 0;
-
-    emptyState.style.display = hay ? "none" : "grid";
+    const hay     = habitos.length > 0;
+    emptyState.style.display  = hay ? "none"  : "grid";
     listSection.style.display = hay ? "block" : "none";
-
-    habitosCount.textContent =
-      `${habitos.length} hábito${habitos.length === 1 ? "" : "s"} activo${habitos.length === 1 ? "" : "s"}`;
-
+    habitosCount.textContent  = `${habitos.length} hábito${habitos.length === 1 ? "" : "s"} activo${habitos.length === 1 ? "" : "s"}`;
     cards.innerHTML = "";
 
-    habitos.forEach((h) => {
+    habitos.forEach(h => {
       const progreso = Math.min(100, 20 + (h.nombre.length % 5) * 15);
-
       const card = document.createElement("article");
-      card.className = "card";
+      card.className  = "card";
       card.dataset.id = h.id;
-
-      card.innerHTML = `
+      card.innerHTML  = `
         <div class="card-top">
           <div>
             <h4><span class="icon">${h.icono || "🎯"}</span> ${escapeHtml(h.nombre)}</h4>
             <p class="desc">${h.descripcion ? escapeHtml(h.descripcion) : "Sin descripción"}</p>
           </div>
-
           <div class="actions">
-            <button class="btn-mini" data-action="edit" title="Editar" type="button">✏️</button>
+            <button class="btn-mini" data-action="edit"   title="Editar"   type="button">✏️</button>
             <button class="btn-mini btn-danger" data-action="delete" title="Eliminar" type="button">🗑️</button>
           </div>
         </div>
-
         <div class="progress-row">
-          <span>Progreso</span>
-          <span>${progreso}%</span>
+          <span>Progreso</span><span>${progreso}%</span>
         </div>
         <div class="bar"><div style="width:${progreso}%"></div></div>
-
-        <div class="days">${renderDias()}</div>
-      `;
-
+        <div class="days">${renderDias()}</div>`;
       cards.appendChild(card);
     });
   }
 
+  /* ── GUARDAR ── */
   function guardarDesdeModal() {
-    const nombre = nombreHabito.value.trim();
+    const nombre      = nombreHabito.value.trim();
     const descripcion = descHabito.value.trim();
-
-    if (!nombre) {
-      errorNombre.classList.add("show");
-      nombreHabito.focus();
-      return;
-    }
-
+    if (!nombre) { errorNombre.classList.add("show"); nombreHabito.focus(); return; }
     errorNombre.classList.remove("show");
 
     const habitos = obtenerHabitos();
-
     if (editingId) {
       const idx = habitos.findIndex(h => h.id === editingId);
-      if (idx !== -1) {
-        habitos[idx] = { ...habitos[idx], nombre, descripcion, icono: selectedIcon };
-      }
+      if (idx !== -1) habitos[idx] = { ...habitos[idx], nombre, descripcion, icono: selectedIcon };
     } else {
       habitos.push({
-        id: (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())),
-        nombre,
-        descripcion,
-        icono: selectedIcon,
+        id: crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        nombre, descripcion, icono: selectedIcon,
         creadoEn: new Date().toISOString()
       });
     }
-
     guardarHabitos(habitos);
     cerrarModal();
     limpiarForm();
@@ -191,30 +158,31 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabitos();
   }
 
+  /* ── ELIMINAR ── */
   function eliminarHabito(id) {
-    const ok = confirm("¿Seguro que quieres eliminar este hábito?");
-    if (!ok) return;
-
-    const habitos = obtenerHabitos().filter(h => h.id !== id);
-    guardarHabitos(habitos);
+    if (!confirm("¿Seguro que quieres eliminar este hábito?")) return;
+    guardarHabitos(obtenerHabitos().filter(h => h.id !== id));
     renderHabitos();
   }
 
-  
+  /* ── CERRAR SESIÓN ── */
+  function cerrarSesion() {
+    if (!confirm("¿Deseas cerrar sesión?")) return;
+    localStorage.removeItem("sesionActiva");
+    window.location.href = "../Iniciodesesion/Index.html";
+  }
+
+  /* ── EVENTOS ── */
+  btnCerrarSesion?.addEventListener("click", cerrarSesion);
   btnAbrirModal.addEventListener("click", abrirModalCrear);
   btnPrimerHabito.addEventListener("click", abrirModalCrear);
-
   btnCerrarModal.addEventListener("click", () => { cerrarModal(); editingId = null; });
   btnCancelar.addEventListener("click", () => { cerrarModal(); editingId = null; });
+  backdrop.addEventListener("click", e => { if (e.target === backdrop) { cerrarModal(); editingId = null; } });
 
-  backdrop.addEventListener("click", (e) => {
-    if (e.target === backdrop) { cerrarModal(); editingId = null; }
-  });
-
-  iconGrid.addEventListener("click", (e) => {
+  iconGrid.addEventListener("click", e => {
     const tile = e.target.closest(".icon-tile");
     if (!tile) return;
-
     document.querySelectorAll(".icon-tile").forEach(el => el.classList.remove("selected"));
     tile.classList.add("selected");
     selectedIcon = tile.dataset.icon || "🎯";
@@ -222,20 +190,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnCrear.addEventListener("click", guardarDesdeModal);
 
-  cards.addEventListener("click", (e) => {
+  cards.addEventListener("click", e => {
     const btn = e.target.closest("button[data-action]");
     if (!btn) return;
-
-    const action = btn.dataset.action;
-    const card = btn.closest(".card");
-    const id = card?.dataset.id;
+    const card   = btn.closest(".card");
+    const id     = card?.dataset.id;
     if (!id) return;
-
-    const habitos = obtenerHabitos();
-    const habito = habitos.find(h => h.id === id);
-
-    if (action === "edit" && habito) abrirModalEditar(habito);
-    if (action === "delete") eliminarHabito(id);
+    const habito = obtenerHabitos().find(h => h.id === id);
+    if (btn.dataset.action === "edit"   && habito) abrirModalEditar(habito);
+    if (btn.dataset.action === "delete")            eliminarHabito(id);
   });
 
   document.querySelector('.icon-tile[data-icon="🎯"]')?.classList.add("selected");

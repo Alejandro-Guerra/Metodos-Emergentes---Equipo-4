@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* ── MODO OSCURO ── */
+  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+  document.body.classList.toggle("dark", modoOscuro);
+
   const API_URL = "http://localhost:3000";
 
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));

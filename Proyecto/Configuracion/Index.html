@@ -38,10 +38,10 @@
     </div>
   </section>
 
-  <!-- ══════════ CONTENIDO PRINCIPAL ══════════ -->
+  <!-- ══════════ CONTENIDO ══════════ -->
   <main class="main">
 
-    <!-- ── TARJETA: Cambiar Nombre ── -->
+    <!-- Tarjeta: Nombre -->
     <div class="config-card">
       <div class="config-card-header">
         <span class="config-icon">👤</span>
@@ -54,25 +54,18 @@
       <div class="field">
         <label for="inputNombre">Nombre completo</label>
         <div class="input-wrap">
-          <input
-            id="inputNombre"
-            type="text"
-            placeholder="Tu nombre completo"
-            autocomplete="name"
-          />
+          <input id="inputNombre" type="text" placeholder="Tu nombre completo" autocomplete="name" />
         </div>
         <div class="error" id="errorNombre">El nombre no puede estar vacío.</div>
       </div>
 
       <div class="field-actions">
-        <button class="btn btn-primary" id="btnGuardarNombre" type="button">
-          Guardar nombre
-        </button>
+        <button class="btn btn-primary" id="btnGuardarNombre" type="button">Guardar nombre</button>
         <div class="success-msg" id="successNombre">✅ Nombre actualizado correctamente</div>
       </div>
     </div>
 
-    <!-- ── TARJETA: Modo Oscuro ── -->
+    <!-- Tarjeta: Modo oscuro -->
     <div class="config-card">
       <div class="config-card-header">
         <span class="config-icon">🌙</span>
@@ -94,7 +87,7 @@
       </div>
     </div>
 
-    <!-- ── TARJETA: Cerrar Sesión ── -->
+    <!-- Tarjeta: Cerrar sesión -->
     <div class="config-card config-card-danger">
       <div class="config-card-header">
         <span class="config-icon">🚪</span>
@@ -105,9 +98,7 @@
       </div>
 
       <div class="field-actions">
-        <button class="btn btn-logout-cfg" id="btnCerrarSesion" type="button">
-          Cerrar sesión
-        </button>
+        <button class="btn-logout-cfg" id="btnCerrarSesion" type="button">Cerrar sesión</button>
       </div>
     </div>
 

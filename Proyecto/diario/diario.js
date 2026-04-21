@@ -1,144 +1,118 @@
-document.addEventListener("DOMContentLoaded",()=>{
-const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ── MODO OSCURO ── */
+  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+  document.body.classList.toggle("dark", modoOscuro);
+
+  /* ── SESIÓN ── */
+  const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Inciodesesion/Index.html";
+    window.location.href = "../Iniciodesesion/Index.html";
     return;
   }
 
-  const tituloHola = document.querySelector("h1"); 
-  if (tituloHola) {
-    tituloHola.textContent = `Hola, ${sesion.nombre}`;
+  const tituloHola = document.querySelector("h1");
+  if (tituloHola) tituloHola.textContent = `Hola, ${sesion.nombre}`;
+
+  const avatarEl = document.querySelector(".avatar");
+  if (avatarEl) avatarEl.textContent = sesion.nombre?.charAt(0).toUpperCase() || "A";
+
+  /* ── ELEMENTOS ── */
+  const btnAbrir   = document.getElementById("btnAbrirModal");
+  const btnPrimera = document.getElementById("btnPrimeraEntrada");
+  const btnCerrar  = document.getElementById("btnCerrarModal");
+  const btnCancelar = document.getElementById("btnCancelar");
+  const btnGuardar = document.getElementById("btnGuardar");
+  const backdrop   = document.getElementById("backdrop");
+
+  const mood     = document.getElementById("mood");
+  const texto    = document.getElementById("textoDia");
+  const lista    = document.getElementById("listaDia");
+  const positivo = document.getElementById("positivoDia");
+
+  const cards = document.getElementById("cards");
+  const empty = document.getElementById("emptyState");
+  const list  = document.getElementById("listSection");
+  const count = document.getElementById("entradasCount");
+
+  /* ── STORAGE ── */
+  function obtener() {
+    return JSON.parse(localStorage.getItem("diario") || "[]");
   }
 
-const btnAbrir = document.getElementById("btnAbrirModal")
-const btnPrimera = document.getElementById("btnPrimeraEntrada")
-const btnCerrar = document.getElementById("btnCerrarModal")
-const btnCancelar = document.getElementById("btnCancelar")
-const btnGuardar = document.getElementById("btnGuardar")
+  function guardar(data) {
+    localStorage.setItem("diario", JSON.stringify(data));
+  }
 
-const backdrop = document.getElementById("backdrop")
+  /* ── MODAL ── */
+  function abrir() {
+    texto.value = lista.value = positivo.value = "";
+    backdrop.classList.add("show");
+  }
 
-const mood = document.getElementById("mood")
-const texto = document.getElementById("textoDia")
-const lista = document.getElementById("listaDia")
-const positivo = document.getElementById("positivoDia")
+  function cerrar() { backdrop.classList.remove("show"); }
 
-const cards = document.getElementById("cards")
-const empty = document.getElementById("emptyState")
-const list = document.getElementById("listSection")
-const count = document.getElementById("entradasCount")
+  btnAbrir.onclick    = abrir;
+  btnPrimera.onclick  = abrir;
+  btnCerrar.onclick   = cerrar;
+  btnCancelar.onclick = cerrar;
 
-function obtener(){
-return JSON.parse(localStorage.getItem("diario") || "[]")
-}
+  backdrop.addEventListener("click", e => { if (e.target === backdrop) cerrar(); });
 
-function guardar(data){
-localStorage.setItem("diario",JSON.stringify(data))
-}
+  /* ── GUARDAR ── */
+  btnGuardar.onclick = () => {
+    let data = obtener();
+    data.push({
+      id:       crypto.randomUUID(),
+      mood:     mood.value,
+      texto:    texto.value,
+      lista:    lista.value,
+      positivo: positivo.value,
+      fecha:    new Date().toLocaleDateString()
+    });
+    guardar(data);
+    cerrar();
+    render();
+  };
 
-function abrir(){
-backdrop.classList.add("show")
-}
+  /* ── ELIMINAR ── */
+  function eliminar(id) {
+    if (!confirm("¿Eliminar esta entrada?")) return;
+    guardar(obtener().filter(e => e.id !== id));
+    render();
+  }
 
-function cerrar(){
-backdrop.classList.remove("show")
-}
+  /* ── RENDER ── */
+  function render() {
+    const data = obtener();
+    cards.innerHTML = "";
 
-btnAbrir.onclick=abrir
-btnPrimera.onclick=abrir
-btnCerrar.onclick=cerrar
-btnCancelar.onclick=cerrar
+    if (data.length === 0) {
+      empty.style.display = "grid";
+      list.style.display  = "none";
+    } else {
+      empty.style.display = "none";
+      list.style.display  = "block";
+    }
 
+    count.textContent = data.length + " entradas registradas";
 
-btnGuardar.onclick=()=>{
+    data.forEach(d => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h4>${d.mood} ${d.fecha}</h4>
+        <p><b>Hoy:</b> ${d.texto || "—"}</p>
+        <p><b>Importante:</b> ${d.lista || "—"}</p>
+        <p><b>Positivo:</b> ${d.positivo || "—"}</p>
+        <div class="actions">
+          <button class="btn-mini btn-danger" data-id="${d.id}">🗑 Eliminar</button>
+        </div>`;
 
-let data=obtener()
+      card.querySelector("button").addEventListener("click", () => eliminar(d.id));
+      cards.appendChild(card);
+    });
+  }
 
-data.push({
-id:crypto.randomUUID(),
-mood:mood.value,
-texto:texto.value,
-lista:lista.value,
-positivo:positivo.value,
-fecha:new Date().toLocaleDateString()
-})
-
-guardar(data)
-
-cerrar()
-
-render()
-
-}
-
-
-function eliminar(id){
-
-let data=obtener()
-
-data=data.filter(e=>e.id!==id)
-
-guardar(data)
-
-render()
-
-}
-
-
-function render(){
-
-let data=obtener()
-
-cards.innerHTML=""
-
-if(data.length===0){
-
-empty.style.display="grid"
-list.style.display="none"
-
-}else{
-
-empty.style.display="none"
-list.style.display="block"
-
-}
-
-count.textContent=data.length+" entradas registradas"
-
-data.forEach(d=>{
-
-let card=document.createElement("div")
-
-card.className="card"
-
-card.innerHTML=`
-
-<h4>${d.mood} ${d.fecha}</h4>
-
-<p><b>Hoy:</b> ${d.texto}</p>
-
-<p><b>Importante:</b> ${d.lista}</p>
-
-<p><b>Positivo:</b> ${d.positivo}</p>
-
-<div class="actions">
-
-<button class="btn-mini" onclick="eliminar('${d.id}')">
-🗑
-</button>
-
-</div>
-
-`
-
-cards.appendChild(card)
-
-})
-
-}
-
-window.eliminar=eliminar
-
-render()
-
-})
+  render();
+});
