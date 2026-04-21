@@ -7,14 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Inciodesesion/Index.html";
+    window.location.href = "../Iniciodesesion/Index.html";
     return;
   }
-
-  const avatarPerfil = document.getElementById("avatarPerfil");
-  avatarPerfil?.addEventListener("click", () => {
-    window.location.href = "../TarjetaUsuario/CardUsuario.html";
-  });
 
   const tituloHola = document.querySelector("h1");
   if (tituloHola) tituloHola.textContent = `Hola, ${sesion.nombre}`;
@@ -22,173 +17,97 @@ document.addEventListener("DOMContentLoaded", () => {
   const avatarEl = document.querySelector(".avatar");
   if (avatarEl) avatarEl.textContent = sesion.nombre?.charAt(0).toUpperCase() || "A";
 
-  const btnAbrir = document.getElementById("btnAbrirModal");
+  /* ── ELEMENTOS ── */
+  const btnAbrir   = document.getElementById("btnAbrirModal");
   const btnPrimera = document.getElementById("btnPrimeraEntrada");
-  const btnCerrar = document.getElementById("btnCerrarModal");
+  const btnCerrar  = document.getElementById("btnCerrarModal");
   const btnCancelar = document.getElementById("btnCancelar");
   const btnGuardar = document.getElementById("btnGuardar");
-  const backdrop = document.getElementById("backdrop");
+  const backdrop   = document.getElementById("backdrop");
 
-  const mensajeUsuario = document.getElementById("mensajeUsuario");
+  const mood     = document.getElementById("mood");
+  const texto    = document.getElementById("textoDia");
+  const lista    = document.getElementById("listaDia");
+  const positivo = document.getElementById("positivoDia");
 
   const cards = document.getElementById("cards");
   const empty = document.getElementById("emptyState");
-  const list = document.getElementById("listSection");
+  const list  = document.getElementById("listSection");
   const count = document.getElementById("entradasCount");
 
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
+  /* ── STORAGE ── */
   function obtener() {
-    try {
-      return JSON.parse(localStorage.getItem("diarioChat")) || [];
-    } catch {
-      return [];
-    }
+    return JSON.parse(localStorage.getItem("diario") || "[]");
   }
 
   function guardar(data) {
-    localStorage.setItem("diarioChat", JSON.stringify(data));
+    localStorage.setItem("diario", JSON.stringify(data));
   }
 
-  function analizarEstado(texto) {
-    const t = texto.toLowerCase();
-
-    if (
-      t.includes("bien") ||
-      t.includes("feliz") ||
-      t.includes("contento") ||
-      t.includes("contenta") ||
-      t.includes("genial") ||
-      t.includes("excelente") ||
-      t.includes("muy bien") ||
-      t.includes("alegre")
-    ) {
-      return {
-        estado: "bien",
-        respuesta: "Qué bueno que te sientas así. Sigue aprovechando ese ánimo y guarda este momento positivo."
-      };
-    }
-
-    if (
-      t.includes("mal") ||
-      t.includes("triste") ||
-      t.includes("cansado") ||
-      t.includes("cansada") ||
-      t.includes("agotado") ||
-      t.includes("agotada") ||
-      t.includes("solo") ||
-      t.includes("sola")
-    ) {
-      return {
-        estado: "mal",
-        respuesta: "Lamento que te sientas así. Recuerda que descansar, respirar y expresar lo que sientes también ayuda."
-      };
-    }
-
-    if (
-      t.includes("estresado") ||
-      t.includes("estresada") ||
-      t.includes("enojado") ||
-      t.includes("enojada") ||
-      t.includes("molesto") ||
-      t.includes("molesta") ||
-      t.includes("frustrado") ||
-      t.includes("frustrada")
-    ) {
-      return {
-        estado: "estresado",
-        respuesta: "Parece que fue un día pesado. Tomarte unos minutos para respirar y ordenar tus ideas puede ayudarte mucho."
-      };
-    }
-
-    return {
-      estado: "neutral",
-      respuesta: "Gracias por compartir cómo te sientes. Expresar tus emociones ya es un paso importante."
-    };
-  }
-
+  /* ── MODAL ── */
   function abrir() {
-    mensajeUsuario.value = "";
+    texto.value = lista.value = positivo.value = "";
     backdrop.classList.add("show");
-    setTimeout(() => mensajeUsuario.focus(), 0);
   }
 
-  function cerrar() {
-    backdrop.classList.remove("show");
-  }
+  function cerrar() { backdrop.classList.remove("show"); }
 
-  btnAbrir?.addEventListener("click", abrir);
-  btnPrimera?.addEventListener("click", abrir);
-  btnCerrar?.addEventListener("click", cerrar);
-  btnCancelar?.addEventListener("click", cerrar);
+  btnAbrir.onclick    = abrir;
+  btnPrimera.onclick  = abrir;
+  btnCerrar.onclick   = cerrar;
+  btnCancelar.onclick = cerrar;
 
-  backdrop?.addEventListener("click", e => {
-    if (e.target === backdrop) cerrar();
-  });
+  backdrop.addEventListener("click", e => { if (e.target === backdrop) cerrar(); });
 
-  btnGuardar?.addEventListener("click", () => {
-    const mensaje = mensajeUsuario.value.trim();
-    if (!mensaje) return;
-
-    const analisis = analizarEstado(mensaje);
-    const data = obtener();
-
-    data.unshift({
-      id: crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
-      fecha: new Date().toLocaleDateString(),
-      mensajeUsuario: mensaje,
-      respuestaBot: analisis.respuesta,
-      estado: analisis.estado
+  /* ── GUARDAR ── */
+  btnGuardar.onclick = () => {
+    let data = obtener();
+    data.push({
+      id:       crypto.randomUUID(),
+      mood:     mood.value,
+      texto:    texto.value,
+      lista:    lista.value,
+      positivo: positivo.value,
+      fecha:    new Date().toLocaleDateString()
     });
-
     guardar(data);
     cerrar();
     render();
-  });
+  };
 
+  /* ── ELIMINAR ── */
   function eliminar(id) {
-    if (!confirm("¿Eliminar esta conversación?")) return;
-    guardar(obtener().filter(item => item.id !== id));
+    if (!confirm("¿Eliminar esta entrada?")) return;
+    guardar(obtener().filter(e => e.id !== id));
     render();
   }
 
+  /* ── RENDER ── */
   function render() {
     const data = obtener();
     cards.innerHTML = "";
 
     if (data.length === 0) {
       empty.style.display = "grid";
-      list.style.display = "none";
+      list.style.display  = "none";
     } else {
       empty.style.display = "none";
-      list.style.display = "block";
+      list.style.display  = "block";
     }
 
-    count.textContent = `${data.length} conversación${data.length === 1 ? "" : "es"} guardada${data.length === 1 ? "" : "s"}`;
+    count.textContent = data.length + " entradas registradas";
 
     data.forEach(d => {
       const card = document.createElement("div");
-      card.className = `card chat-card ${d.estado}`;
-
+      card.className = "card";
       card.innerHTML = `
-        <div class="chat-date">${escapeHtml(d.fecha)}</div>
-        <div class="chat-bubble user">
-          <strong>Tú:</strong> ${escapeHtml(d.mensajeUsuario)}
-        </div>
-        <div class="chat-bubble bot">
-          <strong>Bot:</strong> ${escapeHtml(d.respuestaBot)}
-        </div>
+        <h4>${d.mood} ${d.fecha}</h4>
+        <p><b>Hoy:</b> ${d.texto || "—"}</p>
+        <p><b>Importante:</b> ${d.lista || "—"}</p>
+        <p><b>Positivo:</b> ${d.positivo || "—"}</p>
         <div class="actions">
-          <button class="btn-mini btn-danger" type="button">🗑 Eliminar</button>
-        </div>
-      `;
+          <button class="btn-mini btn-danger" data-id="${d.id}">🗑 Eliminar</button>
+        </div>`;
 
       card.querySelector("button").addEventListener("click", () => eliminar(d.id));
       cards.appendChild(card);
