@@ -12,7 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const usuarioId = sesion.id;
+  
+const avatarPerfil = document.getElementById("avatarPerfil");
+
+avatarPerfil?.addEventListener("click", () => {
+  window.location.href = "../TarjetaUsuario/CardUsuario.html";
+});
+
 
   const tituloHola = document.querySelector("h1");
   if (tituloHola) {
