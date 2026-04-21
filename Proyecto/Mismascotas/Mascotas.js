@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ── MODO OSCURO ── */
+  /* ── MODO OSCURO ── */
   const modoOscuro = localStorage.getItem("modoOscuro") === "true";
   document.body.classList.toggle("dark", modoOscuro);
 
@@ -12,13 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  
-const avatarPerfil = document.getElementById("avatarPerfil");
+  // ✅ ID DEL USUARIO
+  const usuarioId = sesion.id;
 
-avatarPerfil?.addEventListener("click", () => {
-  window.location.href = "../TarjetaUsuario/CardUsuario.html";
-});
+  // ✅ AVATAR (CORREGIDO)
+  const avatarPerfil = document.getElementById("avatarPerfil");
 
+  if (avatarPerfil) {
+    avatarPerfil.textContent =
+      sesion.nombre?.trim().charAt(0).toUpperCase() || "A";
+
+    avatarPerfil.addEventListener("click", () => {
+      window.location.href = "../TarjetaUsuario/CardUsuario.html";
+    });
+  }
 
   const tituloHola = document.querySelector("h1");
   if (tituloHola) {
@@ -56,10 +63,16 @@ avatarPerfil?.addEventListener("click", () => {
   // 🔄 CARGAR DESDE MONGODB
   // =========================
   async function cargarMascotas() {
-    const res = await fetch(`${API_URL}/mascotas/${usuarioId}`);
-    const data = await res.json();
-    mascotas = data.mascotas || [];
-    render();
+    try {
+      const res = await fetch(`${API_URL}/mascotas/${usuarioId}`);
+      const data = await res.json();
+
+      mascotas = data.mascotas || [];
+      render();
+
+    } catch (error) {
+      console.error("Error cargando mascotas:", error);
+    }
   }
 
   // =========================
@@ -136,7 +149,7 @@ avatarPerfil?.addEventListener("click", () => {
   }
 
   // =========================
-  // 🍖 ALIMENTAR
+  // 🍖 ALIMENTAR Y ELIMINAR
   // =========================
   cards.addEventListener("click", async (e) => {
 

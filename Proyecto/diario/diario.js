@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
   if (!sesion) {
-    window.location.href = "../Inciodesesion/Index.html";
+    window.location.href = "../Iniciodesesion/Index.html";
     return;
   }
 
