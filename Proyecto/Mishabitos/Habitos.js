@@ -8,6 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+
+
+const avatarPerfil = document.getElementById("avatarPerfil");
+
+avatarPerfil?.addEventListener("click", () => {
+  window.location.href = "../TarjetaUsuario/CardUsuario.html";
+});
+
+
+
+
   const tituloHola = document.querySelector("h1");
   if (tituloHola) tituloHola.textContent = `Hola, ${sesion.nombre}`;
 

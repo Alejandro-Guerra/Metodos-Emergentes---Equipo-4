@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarjeta de Usuario</title>
+  <link rel="stylesheet" href="CardUsuario.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <button class="btn-back" id="btnVolver" type="button">←</button>
+    <h1>Tarjeta de Usuario</h1>
+  </header>
+
+  <main class="main">
+    <section class="card-perfil">
+
+      <div class="perfil-top">
+        <div class="foto-wrap">
+          <img id="fotoPerfil" src="" alt="Foto de perfil" class="foto-perfil" />
+          <div class="foto-placeholder" id="fotoPlaceholder">👤</div>
+        </div>
+
+        <div class="foto-actions">
+          <input type="file" id="inputFoto" accept="image/*" hidden />
+          <button class="btn btn-primary" id="btnCambiarFoto" type="button">
+            Cambiar foto
+          </button>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="nombreCompleto">Nombre completo</label>
+          <input type="text" id="nombreCompleto" placeholder="Ej: Alejandro Guerra" />
+        </div>
+
+        <div class="field">
+          <label for="nombreUsuario">Nombre de usuario</label>
+          <input type="text" id="nombreUsuario" placeholder="Ej: alexguerra" />
+        </div>
+
+        <div class="field">
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" placeholder="Ej: 21" />
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" placeholder="Ej: 9981234567" />
+        </div>
+
+        <div class="field">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" placeholder="Ej: Cancún, Q. Roo" />
+        </div>
+
+        <div class="field">
+          <label for="correoSeleccionado">Correo seleccionado</label>
+          <input type="email" id="correoSeleccionado" placeholder="Ej: correo@ejemplo.com" />
+        </div>
+
+        <div class="field">
+          <label for="familiaNombre">Familia</label>
+          <input type="text" id="familiaNombre" placeholder="Ej: Familia Guerra" />
+        </div>
+      </div>
+
+      <section class="family-box">
+        <div class="family-header">
+          <h2>Usuarios en la familia</h2>
+          <button class="btn btn-secondary" id="btnAgregarMiembro" type="button">
+            + Agregar
+          </button>
+        </div>
+
+        <div class="family-input-row">
+          <input type="text" id="nuevoMiembro" placeholder="Nombre del integrante" />
+        </div>
+
+        <ul class="family-list" id="familyList"></ul>
+      </section>
+
+      <div class="actions">
+        <button class="btn btn-secondary" id="btnCancelar" type="button">Cancelar</button>
+        <button class="btn btn-primary" id="btnGuardar" type="button">Guardar cambios</button>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="CardUsuario.js"></script>
+</body>
+</html>
