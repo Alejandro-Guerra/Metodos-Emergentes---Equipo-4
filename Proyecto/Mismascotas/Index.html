@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -21,7 +22,6 @@
 
 </header>
 
-
 <nav class="nav">
 
 <div class="wrap">
@@ -39,8 +39,6 @@ Mis Mascotas
 </div>
 
 </nav>
-
-
 
 <section class="section">
 
@@ -64,41 +62,32 @@ Cuida, alimenta y monitorea a tus mascotas
 
 </section>
 
-
-
 <main class="main">
 
 <div class="panel">
 
-
+<!-- STATS -->
 
 <div class="stats">
 
 <div class="stat">
-
 <h4 id="mascotasCount">0</h4>
 <p>Mascotas</p>
-
 </div>
 
 <div class="stat">
-
 <h4 id="promedioSalud">100%</h4>
 <p>Salud promedio</p>
-
 </div>
 
 <div class="stat">
-
 <h4 id="promedioFelicidad">100%</h4>
 <p>Felicidad promedio</p>
-
 </div>
 
 </div>
 
-
-
+<!-- EMPTY STATE -->
 
 <section class="empty" id="emptyState">
 
@@ -116,15 +105,13 @@ Crear mi primera mascota
 
 </section>
 
-
-
-<!-- LISTA MASCOTAS -->
+<!-- LISTA -->
 
 <section class="list" id="listSection">
 
 <div class="cards" id="cards">
 
-<!-- EJEMPLO TARJETA -->
+<!-- TARJETA DE EJEMPLO (NO SE USA EN PRODUCCIÓN, SOLO VISUAL) -->
 
 <article class="card">
 
@@ -132,116 +119,45 @@ Crear mi primera mascota
 
 <div class="pet-header">
 
-<div class="pet-avatar">
-🐶
-</div>
+<div class="pet-avatar">🐶</div>
 
 <div>
-
-<h4>Max</h4>
+<h4>Ejemplo</h4>
 <p class="pet-type">Perro</p>
-
 </div>
 
 </div>
 
-<div class="pet-status">
-Activo
-</div>
+<div class="pet-status">Activo</div>
 
 </div>
-
 
 <div class="pet-info">
 
-<p><b>Comida favorita:</b> Croquetas</p>
-
-<p><b>Notas:</b> Le gusta correr</p>
-
-<p><b>Última comida:</b> 3:20 pm</p>
+<p><b>Comida:</b> Croquetas</p>
+<p><b>Notas:</b> Ejemplo de mascota</p>
+<p><b>Última comida:</b> --</p>
 
 </div>
-
 
 <div class="pet-days">
-
 <span>L</span>
 <span>M</span>
-<span>M</span>
+<span>X</span>
 <span>J</span>
 <span>V</span>
-
 </div>
-
-
 
 <div class="status">
 
 <div class="status-row">
-
 <span class="status-label">Salud</span>
-
 <span>100%</span>
-
 </div>
 
 <div class="bar">
-
 <div class="bar-fill bar-salud" style="width:100%"></div>
-
 </div>
-
-
-<div class="status-row">
-
-<span class="status-label">Felicidad</span>
-
-<span>90%</span>
-
-</div>
-
-<div class="bar">
-
-<div class="bar-fill bar-felicidad" style="width:90%"></div>
-
-</div>
-
-
-<div class="status-row">
-
-<span class="status-label">Energía</span>
-
-<span>80%</span>
-
-</div>
-
-<div class="bar">
-
-<div class="bar-fill bar-energia" style="width:80%"></div>
-
-</div>
-
-</div>
-
-
-
-<div class="actions">
-
-<button class="btn-mini btn-feed">
-🍖 Alimentar
-</button>
-
-<button class="btn-mini">
-🎾 Jugar
-</button>
-
-<button class="btn-mini">
-✏️ Editar
-</button>
-
-<button class="btn-mini btn-danger">
-🗑 Eliminar
-</button>
 
 </div>
 
@@ -255,9 +171,6 @@ Activo
 
 </main>
 
-
-
-
 <!-- MODAL -->
 
 <div class="backdrop" id="backdrop">
@@ -268,22 +181,15 @@ Activo
 
 <h3 id="tituloModal">Agregar Mascota</h3>
 
-<button class="icon-btn" id="btnCerrarModal">
-✕
-</button>
+<button class="icon-btn" id="btnCerrarModal">✕</button>
 
 </div>
-
-
 
 <div class="field">
 
 <label>Nombre</label>
 
-<input
-id="nombreMascota"
-type="text"
-placeholder="Ej: Max">
+<input id="nombreMascota" type="text" placeholder="Ej: Max">
 
 <div class="error" id="errorNombre">
 El nombre es obligatorio
@@ -291,60 +197,43 @@ El nombre es obligatorio
 
 </div>
 
-
-
 <div class="field">
 
 <label>Tipo de mascota</label>
 
-<input
-id="tipoMascota"
-type="text"
-placeholder="Ej: Perro">
+<input id="tipoMascota" type="text" placeholder="Ej: Perro">
 
 </div>
-
-
 
 <div class="field">
 
 <label>Comida favorita</label>
 
-<input
-id="comidaMascota"
-type="text"
-placeholder="Ej: Croquetas">
+<input id="comidaMascota" type="text" placeholder="Ej: Croquetas">
 
 </div>
-
-
 
 <div class="field">
 
 <label>Notas</label>
 
-<textarea
-id="notasMascota"
-placeholder="Ej: Le gusta dormir mucho">
-</textarea>
+<textarea id="notasMascota" placeholder="Ej: Le gusta dormir mucho"></textarea>
 
 </div>
 
-
+<!-- FOTO -->
 
 <div class="field">
 
 <label>Foto de la mascota</label>
 
-<input 
-type="file" 
-id="fotoMascota" 
-accept="image/*">
+<input type="file" id="fotoMascota" accept="image/*">
 
-<img id="preview de tu mascota" style="width:120px; margin-top:10px; display:none; border-radius:10px;">
+<img id="previewFoto" style="width:120px;margin-top:10px;display:none;border-radius:10px;">
 
 </div>
 
+<!-- DÍAS -->
 
 <div class="field">
 
@@ -352,36 +241,11 @@ accept="image/*">
 
 <div class="dias">
 
-<label>
-<input type="checkbox" value="Lunes">
-Lunes
-</label>
-
-<label>
-<input type="checkbox" value="Martes">
-Martes
-</label>
-
-<label>
-<input type="checkbox" value="Miércoles">
-Miércoles
-</label>
-
-<label>
-<input type="checkbox" value="Jueves">
-Jueves
-</label>
-
-<label>
-<input type="checkbox" value="Viernes">
-Viernes
-</label>
+<label><input type="checkbox" value="Lunes">Lunes</label> <label><input type="checkbox" value="Martes">Martes</label> <label><input type="checkbox" value="Miércoles">Miércoles</label> <label><input type="checkbox" value="Jueves">Jueves</label> <label><input type="checkbox" value="Viernes">Viernes</label>
 
 </div>
 
 </div>
-
-
 
 <div class="modal-actions">
 
@@ -389,13 +253,8 @@ Viernes
 Cancelar
 </button>
 
-<button
-class="btn btn-primary btn-full"
-id="btnCrear"
-type="button">
-
+<button class="btn btn-primary btn-full" id="btnCrear" type="button">
 Guardar Mascota
-
 </button>
 
 </div>
@@ -403,7 +262,6 @@ Guardar Mascota
 </div>
 
 </div>
-
 
 <script src="Mascotas.js"></script>
 
