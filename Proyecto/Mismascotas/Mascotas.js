@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ── MODO OSCURO ── */
-  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
-  document.body.classList.toggle("dark", modoOscuro);
-
   const API_URL = "http://localhost:3000";
 
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
@@ -12,25 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // ✅ ID DEL USUARIO
   const usuarioId = sesion.id;
-
-  // ✅ AVATAR (CORREGIDO)
-  const avatarPerfil = document.getElementById("avatarPerfil");
-
-  if (avatarPerfil) {
-    avatarPerfil.textContent =
-      sesion.nombre?.trim().charAt(0).toUpperCase() || "A";
-
-    avatarPerfil.addEventListener("click", () => {
-      window.location.href = "../TarjetaUsuario/CardUsuario.html";
-    });
-  }
-
-  const tituloHola = document.querySelector("h1");
-  if (tituloHola) {
-    tituloHola.textContent = `Hola, ${sesion.nombre}`;
-  }
 
   const btnAbrirModal = document.getElementById("btnAbrirModal");
   const btnPrimerMascota = document.getElementById("btnPrimerMascota");
@@ -38,10 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCerrarModal = document.getElementById("btnCerrarModal");
   const btnCancelar = document.getElementById("btnCancelar");
   const btnCrear = document.getElementById("btnCrear");
+
   const nombreInput = document.getElementById("nombreMascota");
   const tipoInput = document.getElementById("tipoMascota");
   const comidaInput = document.getElementById("comidaMascota");
   const notasInput = document.getElementById("notasMascota");
+
+  const fotoInput = document.getElementById("fotoMascota");
+  const previewFoto = document.getElementById("previewFoto");
 
   const errorNombre = document.getElementById("errorNombre");
 
@@ -60,18 +42,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // 🔄 CARGAR DESDE MONGODB
+  // 📸 PREVIEW DE IMAGEN
+  // =========================
+  fotoInput?.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Solo se permiten imágenes");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        previewFoto.src = e.target.result;
+        previewFoto.style.display = "block";
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // =========================
+  // 🔄 CARGAR
   // =========================
   async function cargarMascotas() {
     try {
       const res = await fetch(`${API_URL}/mascotas/${usuarioId}`);
       const data = await res.json();
-
       mascotas = data.mascotas || [];
       render();
-
     } catch (error) {
-      console.error("Error cargando mascotas:", error);
+      console.error(error);
     }
   }
 
@@ -85,8 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyState.style.display = hay ? "none" : "grid";
     listSection.style.display = hay ? "block" : "none";
 
-    mascotasCount.textContent =
-      `${mascotas.length} mascota${mascotas.length === 1 ? "" : "s"} activa${mascotas.length === 1 ? "" : "s"}`;
+    mascotasCount.textContent = `${mascotas.length} mascota(s)`;
 
     cards.innerHTML = "";
 
@@ -101,46 +103,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
       card.innerHTML = `
         <div class="card-top">
+
           <div>
-            <h4>${getIcono(m.tipo)} ${m.nombre}</h4>
+            ${m.foto 
+              ? `<img src="${m.foto}" style="width:60px;height:60px;border-radius:50%;">`
+              : `<div style="font-size:30px">${getIcono(m.tipo)}</div>`
+            }
+
+            <h4>${m.nombre}</h4>
+
             <p><b>Tipo:</b> ${m.tipo}</p>
             <p><b>Comida:</b> ${m.comida || "No definida"}</p>
             <p><b>Notas:</b> ${m.notas || "Sin notas"}</p>
             <p><b>Última comida:</b> ${ultima}</p>
-
-            <div class="status">
-
-              <div class="status-row">
-                <span>Salud</span>
-                <span>${m.salud}%</span>
-              </div>
-              <div class="bar">
-                <div class="bar-fill bar-salud" style="width:${m.salud}%"></div>
-              </div>
-
-              <div class="status-row">
-                <span>Felicidad</span>
-                <span>${m.felicidad}%</span>
-              </div>
-              <div class="bar">
-                <div class="bar-fill bar-felicidad" style="width:${m.felicidad}%"></div>
-              </div>
-
-              <div class="status-row">
-                <span>Energía</span>
-                <span>${m.energia}%</span>
-              </div>
-              <div class="bar">
-                <div class="bar-fill bar-energia" style="width:${m.energia}%"></div>
-              </div>
-
-            </div>
           </div>
 
           <div class="actions">
             <button class="btn-mini" data-feed="${m._id}">🍖</button>
             <button class="btn-mini btn-danger" data-delete="${m._id}">🗑️</button>
           </div>
+
         </div>
       `;
 
@@ -149,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // 🍖 ALIMENTAR Y ELIMINAR
+  // 🍖 ACCIONES
   // =========================
   cards.addEventListener("click", async (e) => {
 
@@ -184,6 +166,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    let fotoBase64 = "";
+
+    const file = fotoInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      fotoBase64 = await new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    }
+
     await fetch(`${API_URL}/mascotas`, {
       method: "POST",
       headers: {
@@ -194,7 +187,8 @@ document.addEventListener("DOMContentLoaded", () => {
         nombre,
         tipo,
         comida,
-        notas
+        notas,
+        foto: fotoBase64
       })
     });
 
@@ -204,17 +198,20 @@ document.addEventListener("DOMContentLoaded", () => {
     tipoInput.value = "";
     comidaInput.value = "";
     notasInput.value = "";
+    fotoInput.value = "";
+    previewFoto.style.display = "none";
 
     cargarMascotas();
   });
 
+  // =========================
   // MODAL
+  // =========================
   btnAbrirModal.addEventListener("click", () => backdrop.classList.add("show"));
   btnPrimerMascota.addEventListener("click", () => backdrop.classList.add("show"));
   btnCerrarModal.addEventListener("click", () => backdrop.classList.remove("show"));
   btnCancelar.addEventListener("click", () => backdrop.classList.remove("show"));
 
-  // 🚀 INICIO
   cargarMascotas();
 
 });
