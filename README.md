@@ -130,6 +130,7 @@ El sistema es multiusuario y permite registrar hábitos, escribir un diario pers
 - Actualización automática del estado de la mascota
 - Edición de datos de la mascota
 - Eliminación de mascotas
+- Tarjeta de mascostas (Fotos de las mascotas).
 
 
 ## EC — Mis Hábitos
@@ -142,6 +143,8 @@ El sistema es multiusuario y permite registrar hábitos, escribir un diario pers
 - Edición de hábitos
 - Eliminación de hábitos
 - Posibilidad de agregar múltiples hábitos
+- Tarjeta de usuario (Editar perfil de usuario)
+- Arreglo de los dias seleccionados de cada habito
 
 
 ## ED — Mi Diario
@@ -155,6 +158,7 @@ El sistema es multiusuario y permite registrar hábitos, escribir un diario pers
 - Visualización del historial de entradas
 - Edición de entradas
 - Eliminación de entradas
+- Implementación de chatbot
 
 
 ## EE — Backend y Base de Datos
