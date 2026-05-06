@@ -252,3 +252,25 @@ textarea:focus, select:focus{
   color:var(--text);
   transition:background .3s, border-color .3s, color .3s;
 }
+
+.btn-dark-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .2s, border-color .2s, transform .15s;
+  line-height: 1;
+}
+
+.btn-dark-toggle:hover {
+  background: rgba(16, 183, 179, .10);
+  border-color: var(--primary);
+  transform: rotate(20deg);
+}

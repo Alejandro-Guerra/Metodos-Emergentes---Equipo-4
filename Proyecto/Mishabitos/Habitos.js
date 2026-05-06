@@ -2,8 +2,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ── MODO OSCURO — aplicar antes de renderizar ── */
-  const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+   const modoOscuro = localStorage.getItem("modoOscuro") === "true";
   document.body.classList.toggle("dark", modoOscuro);
+ 
+  const btnDarkMode = document.getElementById("btnDarkMode");
+  if (btnDarkMode) {
+    btnDarkMode.textContent = modoOscuro ? "☀️" : "🌙";
+    btnDarkMode.addEventListener("click", () => {
+      const activo = document.body.classList.toggle("dark");
+      localStorage.setItem("modoOscuro", activo ? "true" : "false");
+      btnDarkMode.textContent = activo ? "☀️" : "🌙";
+    });
+  }
 
   /* ── SESIÓN ── */
   const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
